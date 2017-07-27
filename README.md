@@ -28,6 +28,8 @@ export class AppModule { }
 
 ## Example
 
+### Just using classes
+
 ```html
 <p class="foo" inViewport>Amet tempor excepteur occaecat nulla.</p>
 ```
@@ -43,6 +45,30 @@ export class AppModule { }
 
 .foo.in-viewport {
   transform: translateY(0);
+}
+```
+
+### Using events
+
+```html
+<p class="foo" inViewport (onInViewportChange)="onInViewportChange($event)">
+  Amet tempor excepteur occaecat nulla.
+</p>
+```
+
+```ts
+export class AppComponent {
+  highlight = false;
+
+  onInViewportChange(inViewport: boolean) {
+    this.highlight = inViewport;
+  }
+}
+```
+
+```css
+.highlight {
+  background-color: yellow;
 }
 ```
 

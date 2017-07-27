@@ -1,4 +1,4 @@
-import { Directive, HostListener, HostBinding, ElementRef } from '@angular/core';
+import { Directive, ElementRef, HostListener, HostBinding, EventEmitter, Output } from '@angular/core';
 
 const eventPathLoadScroll = ['$event.target.defaultView.innerHeight', '$event.target.defaultView.innerWidth'];
 const eventPathResize = ['$event.target.innerHeight', '$event.target.innerWidth'];
@@ -20,6 +20,13 @@ export class InViewportDirective {
    * @memberof InViewportDirective
    */
   private inViewport: boolean;
+  /**
+   * Emits event when `inViewport` value changes
+   * @type {EventEmitter<boolean>}
+   * @memberof InViewportDirective
+   */
+  @Output()
+  public onInViewportChange = new EventEmitter<boolean>();
   /**
    * Returns true if element is in viewport
    *
@@ -49,7 +56,7 @@ export class InViewportDirective {
    */
   constructor(private el: ElementRef) { }
   /**
-   * On scroll/resize/load events,
+   * On window scroll/resize/load events
    * check if element is in viewport
    *
    * @param {number} height
@@ -61,9 +68,13 @@ export class InViewportDirective {
   public onViewportChange(height: number, width: number): void {
     const el: HTMLElement = this.el.nativeElement;
     const bounds = el.getBoundingClientRect();
+    const oldInViewport = this.inViewport;
     this.inViewport = (
       (bounds.top > 0) && (bounds.bottom < height) &&
       (bounds.left > 0) && (bounds.right < width)
     );
+    if (oldInViewport !== this.inViewport) {
+      this.onInViewportChange.emit(this.inViewport);
+    }
   }
 }

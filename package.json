@@ -1,6 +1,6 @@
 {
   "name": "angular-inviewport",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "A simple lightweight library with no external dependencies that detects when an element is within the browser viewport and adds a `in-viewport` or `not-in-viewport` class to the element.",
   "keywords": [
     "angular",
@@ -73,12 +73,12 @@
     "lite-server": "^2.2.2",
     "rimraf": "^2.6.1",
     "rollup": "^0.42.0",
-    "rollup-plugin-sourcemaps": "^0.4.1",
-    "rollup-plugin-uglify": "^2.0.1",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-sourcemaps": "^0.4.1",
+    "rollup-plugin-uglify": "^2.0.1",
     "rxjs": "^5.0.1",
-    "standard-version": "^4.0.0",
+    "standard-version": "^4.2.0",
     "systemjs": "^0.19.40",
     "tslint": "^4.4.2",
     "typescript": "~2.3.0",

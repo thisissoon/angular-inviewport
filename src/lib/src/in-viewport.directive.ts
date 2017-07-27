@@ -8,6 +8,22 @@ const eventScroll = 'window:scroll';
 const inViewportClass = 'class.in-viewport';
 const notInViewportClass = 'class.not-in-viewport';
 
+/**
+ * A simple lightweight library for Angular (2+) with no
+ * external dependencies that detects when an element is within the
+ * browser viewport and adds a `in-viewport` or `not-in-viewport` class
+ * to the element.
+ *
+ * @example
+ * ```
+ * <p class="foo" inViewport (onInViewportChange)="myEventHandler($event)">
+ *  Amet tempor excepteur occaecat nulla.
+ * </p>
+ * ```
+ *
+ * @export
+ * @class InViewportDirective
+ */
 @Directive({
   selector: '[inViewport]'
 })

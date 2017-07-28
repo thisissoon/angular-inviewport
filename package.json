@@ -1,7 +1,7 @@
 {
   "name": "angular-inviewport",
   "version": "0.1.1",
-  "description": "A simple lightweight library with no external dependencies that detects when an element is within the browser viewport and adds a `in-viewport` or `not-in-viewport` class to the element.",
+  "description": "A simple lightweight library for Angular 2/4+ with no external dependencies that detects when an element is within the browser viewport and adds a `in-viewport` or `not-in-viewport` class to the element.",
   "keywords": [
     "angular",
     "angular 2",

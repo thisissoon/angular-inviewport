@@ -1,5 +1,6 @@
 # Angular InViewport
 [![Build Status][travis-badge]][travis-badge-url]
+[![Coverage Status][coveralls-badge]][coveralls-badge-url]
 
 A simple lightweight library for [Angular (2+)][angular] with no external dependencies that detects when an element is within the browser viewport and adds a `in-viewport` or `not-in-viewport` class to the element.
 
@@ -74,4 +75,6 @@ export class AppComponent {
 
 [travis-badge]: https://travis-ci.org/edoparearyee/angular-inviewport.svg?branch=master
 [travis-badge-url]: https://travis-ci.org/edoparearyee/angular-inviewport
+[coveralls-badge]: https://coveralls.io/repos/github/edoparearyee/angular-inviewport/badge.svg?branch=master
+[coveralls-badge-url]: https://coveralls.io/github/edoparearyee/angular-inviewport?branch=master
 [angular]: https://angular.io/

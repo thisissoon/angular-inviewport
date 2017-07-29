@@ -42,7 +42,7 @@
     "integration:jit": "cd integration && npm run e2e",
     "integration:aot": "cd integration && npm run e2e:aot",
     "lint": "tslint ./src/**/*.ts -t verbose",
-    "prerelease": "npm run build",
+    "prepublish": "npm run build",
     "release": "standard-version"
   },
   "peerDependencies": {

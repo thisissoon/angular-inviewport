@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/edoparearyee/angular-inviewport/compare/v0.1.3...v0.2.0) (2017-08-03)
+
+### Features
+
+* **inViewport:** Debounce event handler to improve performance ([0b44112](https://github.com/edoparearyee/angular-inviewport/commit/0b44112))
+
+
 <a name="0.1.3"></a>
 ## [0.1.3](https://github.com/edoparearyee/angular-inviewport/compare/v0.1.2...v0.1.3) (2017-07-29)
 
@@ -16,14 +24,11 @@ All notable changes to this project will be documented in this file. See [standa
 <a name="0.1.2"></a>
 ## [0.1.2](https://github.com/edoparearyee/angular-inviewport/compare/v0.1.1...v0.1.2) (2017-07-28)
 
-### Chore
-
-* **docs:** update package description to mention angular ([23030cd](https://github.com/edoparearyee/angular-inviewport/commit/23030cd))
 
 <a name="0.1.1"></a>
 ## [0.1.1](https://github.com/edoparearyee/angular-inviewport/compare/v0.1.0...v0.1.1) (2017-07-27)
 
-### Fixes
+### Bug Fixes
 
 * **build:** make sure to run build before release ([ae3a797](https://github.com/edoparearyee/angular-inviewport/commit/ae3a797))
 
@@ -39,8 +44,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="0.0.2"></a>
-## 0.0.2 (2017-07-18)
+## [0.0.2](https://github.com/edoparearyee/angular-inviewport/commit/6f04f8f) (2017-07-18)
 
 ### Features
 
-* **inViewport:** initial release
+* **inViewport:** initial release ([6f04f8f](https://github.com/edoparearyee/angular-inviewport/commit/6f04f8f))

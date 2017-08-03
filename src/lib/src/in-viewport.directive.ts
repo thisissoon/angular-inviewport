@@ -1,4 +1,7 @@
-import { Directive, ElementRef, HostListener, HostBinding, EventEmitter, Output } from '@angular/core';
+import { Directive, ElementRef, HostListener, HostBinding, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/takeUntil';
 
 const eventPathLoadScroll = ['$event.target.defaultView.innerHeight', '$event.target.defaultView.innerWidth'];
 const eventPathResize = ['$event.target.innerHeight', '$event.target.innerWidth'];
@@ -7,6 +10,11 @@ const eventResize = 'window:resize';
 const eventScroll = 'window:scroll';
 const inViewportClass = 'class.in-viewport';
 const notInViewportClass = 'class.not-in-viewport';
+
+interface Size {
+  height: number;
+  width: number;
+}
 
 /**
  * A simple lightweight library for Angular (2+) with no
@@ -27,7 +35,7 @@ const notInViewportClass = 'class.not-in-viewport';
 @Directive({
   selector: '[inViewport]'
 })
-export class InViewportDirective {
+export class InViewportDirective implements OnDestroy {
   /**
    * If true means the element is in the browser viewport
    *
@@ -37,12 +45,38 @@ export class InViewportDirective {
    */
   private inViewport: boolean;
   /**
+   * Observable that returns the size of the viewport
+   *
+   * @private
+   * @type {Subject<Size>}
+   * @memberof InViewportDirective
+   */
+  private viewportSize$ = new Subject<Size>();
+  /**
+   * Completes on component destroy lifecycle event
+   * use to handle unsubscription from infinite observables
+   *
+   * @type {Subject<void>}
+   * @memberof InViewportDirective
+   */
+  private ngUnsubscribe$ = new Subject<void>();
+  /**
    * Emits event when `inViewport` value changes
    * @type {EventEmitter<boolean>}
    * @memberof InViewportDirective
    */
   @Output()
   public onInViewportChange = new EventEmitter<boolean>();
+  /**
+   * Amount of time in ms to wait for other scroll events
+   * before running event handler
+   *
+   * @type {number}
+   * @default {100}
+   * @memberof InViewportDirective
+   */
+  @Input()
+  public debounce = 100;
   /**
    * Returns true if element is in viewport
    *
@@ -70,27 +104,54 @@ export class InViewportDirective {
    * @param {ElementRef} el
    * @memberof InViewportDirective
    */
-  constructor(private el: ElementRef) { }
+  constructor(private el: ElementRef) {
+    this.viewportSize$
+      .takeUntil(this.ngUnsubscribe$)
+      .debounceTime(this.debounce)
+      .subscribe((size) => this.calculateInViewportStatus(size));
+  }
   /**
    * On window scroll/resize/load events
-   * check if element is in viewport
+   * emit next `viewportSize$` observable value
    *
    * @param {number} height
+   * @param {number} width
    * @memberof InViewportDirective
    */
   @HostListener(eventLoad, eventPathLoadScroll)
   @HostListener(eventScroll, eventPathLoadScroll)
   @HostListener(eventResize, eventPathResize)
-  public onViewportChange(height: number, width: number): void {
+  public eventHandler(height: number, width: number): void {
+    const size: Size = { height, width };
+    this.viewportSize$.next(size);
+  }
+  /**
+   * Calculate inViewport status and emit event
+   * when viewport status has changed
+   *
+   * @param {Size} size
+   * @memberof InViewportDirective
+   */
+  private calculateInViewportStatus(size: Size): void {
     const el: HTMLElement = this.el.nativeElement;
     const bounds = el.getBoundingClientRect();
     const oldInViewport = this.inViewport;
     this.inViewport = (
-      (bounds.top > 0) && (bounds.bottom < height) &&
-      (bounds.left > 0) && (bounds.right < width)
+      (bounds.top > 0) && (bounds.bottom < size.height) &&
+      (bounds.left > 0) && (bounds.right < size.width)
     );
     if (oldInViewport !== this.inViewport) {
       this.onInViewportChange.emit(this.inViewport);
     }
+  }
+  /**
+   * trigger `ngUnsubscribe` complete on
+   * component destroy lifecycle hook
+   *
+   * @memberof InViewportDirective
+   */
+  public ngOnDestroy(): void {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
   }
 }

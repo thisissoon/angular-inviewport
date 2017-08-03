@@ -24,7 +24,10 @@ export interface Size {
  *
  * @example
  * ```
- * <p class="foo" inViewport (onInViewportChange)="myEventHandler($event)">
+ * <p
+ *  class="foo"
+ *  inViewport (onInViewportChange)="myEventHandler($event)"
+ *  [debounce]="300">
  *  Amet tempor excepteur occaecat nulla.
  * </p>
  * ```
@@ -72,7 +75,7 @@ export class InViewportDirective implements OnInit, OnDestroy {
    * before running event handler
    *
    * @type {number}
-   * @default {100}
+   * @default 100
    * @memberof InViewportDirective
    */
   @Input()

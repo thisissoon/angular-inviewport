@@ -73,6 +73,14 @@ export class AppComponent {
 }
 ```
 
+### Specify debounce time (default: 100ms)
+
+```html
+<p class="foo" inViewport [debounce]="500">
+  Amet tempor excepteur occaecat nulla.
+</p>
+```
+
 [travis-badge]: https://travis-ci.org/edoparearyee/angular-inviewport.svg?branch=master
 [travis-badge-url]: https://travis-ci.org/edoparearyee/angular-inviewport
 [coveralls-badge]: https://coveralls.io/repos/github/edoparearyee/angular-inviewport/badge.svg?branch=master

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, HostBinding, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, HostListener, HostBinding, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/takeUntil';
@@ -11,7 +11,7 @@ const eventScroll = 'window:scroll';
 const inViewportClass = 'class.in-viewport';
 const notInViewportClass = 'class.not-in-viewport';
 
-interface Size {
+export interface Size {
   height: number;
   width: number;
 }
@@ -35,7 +35,7 @@ interface Size {
 @Directive({
   selector: '[inViewport]'
 })
-export class InViewportDirective implements OnDestroy {
+export class InViewportDirective implements OnInit, OnDestroy {
   /**
    * If true means the element is in the browser viewport
    *
@@ -104,7 +104,14 @@ export class InViewportDirective implements OnDestroy {
    * @param {ElementRef} el
    * @memberof InViewportDirective
    */
-  constructor(private el: ElementRef) {
+  constructor(private el: ElementRef) { }
+  /**
+   * Subscribe to `viewportSize$` observable which
+   * will call event handler
+   *
+   * @memberof InViewportDirective
+   */
+  public ngOnInit(): void {
     this.viewportSize$
       .takeUntil(this.ngUnsubscribe$)
       .debounceTime(this.debounce)
@@ -132,7 +139,7 @@ export class InViewportDirective implements OnDestroy {
    * @param {Size} size
    * @memberof InViewportDirective
    */
-  private calculateInViewportStatus(size: Size): void {
+  public calculateInViewportStatus(size: Size): void {
     const el: HTMLElement = this.el.nativeElement;
     const bounds = el.getBoundingClientRect();
     const oldInViewport = this.inViewport;

@@ -170,17 +170,13 @@ export class InViewportDirective implements OnInit, OnDestroy {
     const oldInViewport = this.inViewport;
     this.inViewport = (
       (
-        (
-          (elBounds.top >= viewportBounds.top) && (elBounds.top <= viewportBounds.bottom) ||
-          (elBounds.bottom >= viewportBounds.top) && (elBounds.bottom <= viewportBounds.bottom)
-        ) &&
-        (
-          (elBounds.left >= viewportBounds.left) && (elBounds.left <= viewportBounds.right) ||
-          (elBounds.right >= viewportBounds.left) && (elBounds.right <= viewportBounds.right)
-        )
-      ) ||
+        (elBounds.top >= viewportBounds.top) && (elBounds.top <= viewportBounds.bottom) ||
+        (elBounds.bottom >= viewportBounds.top) && (elBounds.bottom <= viewportBounds.bottom) ||
+        (elBounds.top <= viewportBounds.top) && (elBounds.bottom >= viewportBounds.bottom)
+      ) &&
       (
-        (elBounds.top <= viewportBounds.top && elBounds.bottom >= viewportBounds.bottom) ||
+        (elBounds.left >= viewportBounds.left) && (elBounds.left <= viewportBounds.right) ||
+        (elBounds.right >= viewportBounds.left) && (elBounds.right <= viewportBounds.right) ||
         (elBounds.left <= viewportBounds.left && elBounds.right >= viewportBounds.right)
       )
     );

@@ -121,6 +121,14 @@ describe('InViewportDirective', () => {
       directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 200, scrollY: 0});
       expect(directive.isInViewport).toBeTruthy();
     });
+
+    it('should return false for `isInViewport` property', () => {
+      el.nativeElement.offsetTop = 1000;
+      el.nativeElement.offsetleft = 0;
+      el.nativeElement.offsetWidth = 1366;
+      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 0, scrollY: 0});
+      expect(directive.isInViewport).toBeFalsy();
+    });
   });
 
 });

@@ -145,10 +145,24 @@ export class InViewportDirective implements OnInit, OnDestroy {
   public calculateInViewportStatus(size: Size): void {
     const el: HTMLElement = this.el.nativeElement;
     const bounds = el.getBoundingClientRect();
+    const elHeight = el.offsetHeight;
+    const elHWidth = el.offsetWidth;
     const oldInViewport = this.inViewport;
     this.inViewport = (
-      (bounds.top > 0) && (bounds.bottom < size.height) &&
-      (bounds.left > 0) && (bounds.right < size.width)
+      (
+        (
+          (bounds.top >= 0) && (bounds.top <= size.height) ||
+          (bounds.bottom >= 0) && (bounds.bottom <= size.height)
+        ) &&
+        (
+          (bounds.left >= 0) && (bounds.left <= size.width) ||
+          (bounds.right >= 0) && (bounds.right <= size.width)
+        )
+      ) ||
+      (
+        (bounds.top <= 0 && bounds.bottom >= size.height) ||
+        (bounds.left <= 0 && bounds.right >= size.width)
+      )
     );
     if (oldInViewport !== this.inViewport) {
       this.onInViewportChange.emit(this.inViewport);

@@ -3,8 +3,17 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/takeUntil';
 
-const eventPathLoadScroll = ['$event.target.defaultView.innerHeight', '$event.target.defaultView.innerWidth'];
-const eventPathResize = ['$event.target.innerHeight', '$event.target.innerWidth'];
+const eventPathLoadScroll = [
+  '$event.target.defaultView.innerHeight', '$event.target.defaultView.innerWidth',
+  '$event.target.defaultView.scrollY',
+  '$event.target.defaultView.scrollX'
+];
+const eventPathResize = [
+  '$event.target.innerHeight',
+  '$event.target.innerWidth',
+  '$event.target.scrollY',
+  '$event.target.scrollX'
+];
 const eventLoad = 'window:load';
 const eventResize = 'window:resize';
 const eventScroll = 'window:scroll';
@@ -14,6 +23,8 @@ const notInViewportClass = 'class.not-in-viewport';
 export interface Size {
   height: number;
   width: number;
+  scrollY: number;
+  scrollX: number;
 }
 
 /**
@@ -131,8 +142,8 @@ export class InViewportDirective implements OnInit, OnDestroy {
   @HostListener(eventLoad, eventPathLoadScroll)
   @HostListener(eventScroll, eventPathLoadScroll)
   @HostListener(eventResize, eventPathResize)
-  public eventHandler(height: number, width: number): void {
-    const size: Size = { height, width };
+  public eventHandler(height: number, width: number, scrollY: number, scrollX: number): void {
+    const size: Size = { height, width, scrollY, scrollX };
     this.viewportSize$.next(size);
   }
   /**
@@ -144,24 +155,33 @@ export class InViewportDirective implements OnInit, OnDestroy {
    */
   public calculateInViewportStatus(size: Size): void {
     const el: HTMLElement = this.el.nativeElement;
-    const bounds = el.getBoundingClientRect();
-    const elHeight = el.offsetHeight;
-    const elHWidth = el.offsetWidth;
+    const viewportBounds = {
+      top: size.scrollY,
+      bottom: size.scrollY + size.height,
+      left: size.scrollX,
+      right: size.scrollX + size.width,
+    };
+    const elBounds = {
+      top: el.offsetTop,
+      bottom: el.offsetTop + el.offsetHeight,
+      left: el.offsetLeft,
+      right: el.offsetLeft + el.offsetWidth,
+    };
     const oldInViewport = this.inViewport;
     this.inViewport = (
       (
         (
-          (bounds.top >= 0) && (bounds.top <= size.height) ||
-          (bounds.bottom >= 0) && (bounds.bottom <= size.height)
+          (elBounds.top >= viewportBounds.top) && (elBounds.top <= viewportBounds.bottom) ||
+          (elBounds.bottom >= viewportBounds.top) && (elBounds.bottom <= viewportBounds.bottom)
         ) &&
         (
-          (bounds.left >= 0) && (bounds.left <= size.width) ||
-          (bounds.right >= 0) && (bounds.right <= size.width)
+          (elBounds.left >= viewportBounds.left) && (elBounds.left <= viewportBounds.right) ||
+          (elBounds.right >= viewportBounds.left) && (elBounds.right <= viewportBounds.right)
         )
       ) ||
       (
-        (bounds.top <= 0 && bounds.bottom >= size.height) ||
-        (bounds.left <= 0 && bounds.right >= size.width)
+        (elBounds.top <= viewportBounds.top && elBounds.bottom >= viewportBounds.bottom) ||
+        (elBounds.left <= viewportBounds.left && elBounds.right >= viewportBounds.right)
       )
     );
     if (oldInViewport !== this.inViewport) {

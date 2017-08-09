@@ -1,4 +1,5 @@
 {
+  "ghostMode": false,
   "server": {
     "baseDir": "src/demo",
     "routes": {

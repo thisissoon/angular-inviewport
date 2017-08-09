@@ -10,3 +10,8 @@
 .highlight {
   background: yellow;
 }
+
+.large-element {
+  background: palegreen;
+  min-height: 200vh;
+}

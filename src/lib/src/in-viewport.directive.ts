@@ -1,31 +1,13 @@
-import { Directive, ElementRef, HostListener, HostBinding, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angular/core';
+import {
+  Directive, ElementRef, HostListener, HostBinding,
+  EventEmitter, Input, Output, OnInit, OnDestroy
+} from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/takeUntil';
 
-const eventPathLoadScroll = [
-  '$event.target.defaultView.innerHeight', '$event.target.defaultView.innerWidth',
-  '$event.target.defaultView.scrollY',
-  '$event.target.defaultView.scrollX'
-];
-const eventPathResize = [
-  '$event.target.innerHeight',
-  '$event.target.innerWidth',
-  '$event.target.scrollY',
-  '$event.target.scrollX'
-];
-const eventLoad = 'window:load';
-const eventResize = 'window:resize';
-const eventScroll = 'window:scroll';
-const inViewportClass = 'class.in-viewport';
-const notInViewportClass = 'class.not-in-viewport';
-
-export interface Size {
-  height: number;
-  width: number;
-  scrollY: number;
-  scrollX: number;
-}
+import { Viewport } from './viewport';
+import * as eventData from './event-data';
 
 /**
  * A simple lightweight library for Angular (2+) with no
@@ -62,10 +44,10 @@ export class InViewportDirective implements OnInit, OnDestroy {
    * Observable that returns the size of the viewport
    *
    * @private
-   * @type {Subject<Size>}
+   * @type {Subject<Viewport>}
    * @memberof InViewportDirective
    */
-  private viewportSize$ = new Subject<Size>();
+  private viewport$ = new Subject<Viewport>();
   /**
    * Completes on component destroy lifecycle event
    * use to handle unsubscription from infinite observables
@@ -98,7 +80,7 @@ export class InViewportDirective implements OnInit, OnDestroy {
    * @type {boolean}
    * @memberof InViewportDirective
    */
-  @HostBinding(inViewportClass)
+  @HostBinding(eventData.inViewportClass)
   public get isInViewport(): boolean {
     return this.inViewport;
   }
@@ -109,7 +91,7 @@ export class InViewportDirective implements OnInit, OnDestroy {
    * @type {boolean}
    * @memberof InViewportDirective
    */
-  @HostBinding(notInViewportClass)
+  @HostBinding(eventData.notInViewportClass)
   public get isNotInViewport(): boolean {
     return !this.inViewport;
   }
@@ -120,46 +102,53 @@ export class InViewportDirective implements OnInit, OnDestroy {
    */
   constructor(private el: ElementRef) { }
   /**
-   * Subscribe to `viewportSize$` observable which
+   * Subscribe to `viewport$` observable which
    * will call event handler
    *
    * @memberof InViewportDirective
    */
   public ngOnInit(): void {
-    this.viewportSize$
+    this.viewport$
       .takeUntil(this.ngUnsubscribe$)
       .debounceTime(this.debounce)
-      .subscribe((size) => this.calculateInViewportStatus(size));
+      .subscribe((viewport) => this.calculateInViewportStatus(viewport));
   }
   /**
    * On window scroll/resize/load events
-   * emit next `viewportSize$` observable value
+   * emit next `viewport$` observable value
    *
    * @param {number} height
    * @param {number} width
+   * @param {number} scrollY
+   * @param {number} scrollX
    * @memberof InViewportDirective
    */
-  @HostListener(eventLoad, eventPathLoadScroll)
-  @HostListener(eventScroll, eventPathLoadScroll)
-  @HostListener(eventResize, eventPathResize)
-  public eventHandler(height: number, width: number, scrollY: number, scrollX: number): void {
-    const size: Size = { height, width, scrollY, scrollX };
-    this.viewportSize$.next(size);
+  @HostListener(eventData.eventLoad, eventData.eventPathLoadScroll)
+  @HostListener(eventData.eventScroll, eventData.eventPathLoadScroll)
+  @HostListener(eventData.eventResize, eventData.eventPathResize)
+  public eventHandler(
+    height: number,
+    width: number,
+    scrollY: number,
+    scrollX: number
+  ): void {
+    const viewport: Viewport = { height, width, scrollY, scrollX };
+    this.viewport$.next(viewport);
   }
   /**
    * Calculate inViewport status and emit event
    * when viewport status has changed
    *
-   * @param {Size} size
+   * @param {Viewport} viewport
    * @memberof InViewportDirective
    */
-  public calculateInViewportStatus(size: Size): void {
+  public calculateInViewportStatus(viewport: Viewport): void {
     const el: HTMLElement = this.el.nativeElement;
     const viewportBounds = {
-      top: size.scrollY,
-      bottom: size.scrollY + size.height,
-      left: size.scrollX,
-      right: size.scrollX + size.width,
+      top: viewport.scrollY,
+      bottom: viewport.scrollY + viewport.height,
+      left: viewport.scrollX,
+      right: viewport.scrollX + viewport.width,
     };
     const elBounds = {
       top: el.offsetTop,

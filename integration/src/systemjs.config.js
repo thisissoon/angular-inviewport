@@ -26,7 +26,7 @@
       // other libraries
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
-      'angular-inviewport': 'npm:angular-inviewport/bundles/angular-inviewport.umd.js'
+      '@thisissoon/angular-inviewport': 'npm:@thisissoon/angular-inviewport/bundles/angular-inviewport.umd.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {

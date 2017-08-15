@@ -2,7 +2,7 @@
 [![Build Status][travis-badge]][travis-badge-url]
 [![Coverage Status][coveralls-badge]][coveralls-badge-url]
 
-A simple lightweight library for [Angular (2+)][angular] with no external dependencies that detects when an element is within the browser viewport and adds a `in-viewport` or `not-in-viewport` class to the element.
+A simple lightweight library for [Angular (2+)][angular] with no other dependencies that detects when an element is within the browser viewport and adds a `sn-viewport-in` or `sn-viewport-out` class to the element.
 
 This is a simple library for [Angular][angular], implemented in the [Angular Package Format v4.0](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/edit#heading=h.k0mh3o8u5hx).
 
@@ -13,15 +13,12 @@ This is a simple library for [Angular][angular], implemented in the [Angular Pac
 
 `app.module.ts`
 ```ts
-import { InViewportModule } from 'angular-inviewport';
+import { InViewportModule } from '@thisissoon/angular-inviewport';
 
 @NgModule({
   imports: [
-    /** other imports **/
-    InViewportModule,
-    /** other imports **/
-  ],
-  /** other ngModule code **/
+    InViewportModule
+  ]
 })
 export class AppModule { }
 ```
@@ -40,11 +37,11 @@ export class AppModule { }
   transition: transform .35s ease-out;
 }
 
-.foo.not-in-viewport {
+.foo.sn-viewport-out {
   transform: translateY(-30px);
 }
 
-.foo.in-viewport {
+.foo.sn-viewport-in {
   transform: translateY(0);
 }
 ```
@@ -81,8 +78,8 @@ export class AppComponent {
 </p>
 ```
 
-[travis-badge]: https://travis-ci.org/edoparearyee/angular-inviewport.svg?branch=master
-[travis-badge-url]: https://travis-ci.org/edoparearyee/angular-inviewport
-[coveralls-badge]: https://coveralls.io/repos/github/edoparearyee/angular-inviewport/badge.svg?branch=master
-[coveralls-badge-url]: https://coveralls.io/github/edoparearyee/angular-inviewport?branch=master
+[travis-badge]: https://travis-ci.org/thisissoon/angular-inviewport.svg?branch=master
+[travis-badge-url]: https://travis-ci.org/thisissoon/angular-inviewport
+[coveralls-badge]: https://coveralls.io/repos/github/thisissoon/angular-inviewport/badge.svg?branch=master
+[coveralls-badge-url]: https://coveralls.io/github/thisissoon/angular-inviewport?branch=master
 [angular]: https://angular.io/

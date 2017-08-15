@@ -15,7 +15,7 @@
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
     "flatModuleOutFile": "angular-inviewport.js",
-    "flatModuleId": "angular-inviewport",
+    "flatModuleId": "@thisissoon/angular-inviewport",
     "genDir": "../../out-tsc/lib-gen-dir/"
   }
 }

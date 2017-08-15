@@ -1,6 +1,6 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { InViewportModule } from 'angular-inviewport';
+import { InViewportModule } from '@thisissoon/angular-inviewport';
 
 import { AppComponent }  from './app.component';
 

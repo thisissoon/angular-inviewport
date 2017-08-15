@@ -9,7 +9,7 @@ This is a simple library for [Angular][angular], implemented in the [Angular Pac
 
 ## Install
 
-`npm i angular-inviewport --save`
+`npm i @thisissoon/angular-inviewport --save`
 
 `app.module.ts`
 ```ts

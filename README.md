@@ -29,7 +29,7 @@ export class AppModule { }
 ### Just using classes
 
 ```html
-<p class="foo" inViewport>Amet tempor excepteur occaecat nulla.</p>
+<p class="foo" snInViewport>Amet tempor excepteur occaecat nulla.</p>
 ```
 
 ```css
@@ -49,7 +49,7 @@ export class AppModule { }
 ### Using events
 
 ```html
-<p class="foo" inViewport (onInViewportChange)="onInViewportChange($event)">
+<p class="foo" snInViewport (onInViewportChange)="onInViewportChange($event)">
   Amet tempor excepteur occaecat nulla.
 </p>
 ```
@@ -73,7 +73,7 @@ export class AppComponent {
 ### Specify debounce time (default: 100ms)
 
 ```html
-<p class="foo" inViewport [debounce]="500">
+<p class="foo" snInViewport [debounce]="500">
   Amet tempor excepteur occaecat nulla.
 </p>
 ```

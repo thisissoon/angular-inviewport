@@ -19,7 +19,8 @@ import * as eventData from './event-data';
  * ```
  * <p
  *  class="foo"
- *  inViewport (onInViewportChange)="myEventHandler($event)"
+ *  snInViewport
+ *  (onInViewportChange)="myEventHandler($event)"
  *  [debounce]="300">
  *  Amet tempor excepteur occaecat nulla.
  * </p>
@@ -29,7 +30,7 @@ import * as eventData from './event-data';
  * @class InViewportDirective
  */
 @Directive({
-  selector: '[inViewport]'
+  selector: '[inViewport], [snInViewport]'
 })
 export class InViewportDirective implements OnInit, OnDestroy {
   /**

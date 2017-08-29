@@ -15,3 +15,14 @@
   background: palegreen;
   min-height: 200vh;
 }
+
+.scrollable {
+  height: 200px;
+  overflow: auto;
+  padding-top: 300px;
+}
+
+.scrollable .inside-scrollable {
+  background-color: blueviolet;
+  color: white;
+}

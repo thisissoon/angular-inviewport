@@ -24,13 +24,17 @@ export class AppModule { }
 ```
 
 
-## Example
+## Examples
 
 ### Just using classes
+
+#### `app.component.html`
 
 ```html
 <p class="foo" snInViewport>Amet tempor excepteur occaecat nulla.</p>
 ```
+
+#### `app.component.css`
 
 ```css
 .foo {
@@ -48,11 +52,15 @@ export class AppModule { }
 
 ### Using events
 
+#### `app.component.html`
+
 ```html
 <p class="foo" snInViewport (onInViewportChange)="onInViewportChange($event)">
   Amet tempor excepteur occaecat nulla.
 </p>
 ```
+
+#### `app.component.ts`
 
 ```ts
 export class AppComponent {
@@ -64,6 +72,8 @@ export class AppComponent {
 }
 ```
 
+#### `app.component.css`
+
 ```css
 .highlight {
   background-color: yellow;
@@ -72,10 +82,26 @@ export class AppComponent {
 
 ### Specify debounce time (default: 100ms)
 
+#### `app.component.html`
+
 ```html
 <p class="foo" snInViewport [debounce]="500">
   Amet tempor excepteur occaecat nulla.
 </p>
+```
+
+### Specify parent scrollable element
+
+Useful if element is within another scrollable element
+
+#### `app.component.html`
+
+```html
+<div #container>
+  <p class="foo" snInViewport [debounce]="500" [snInViewportParent]="container">
+    Amet tempor excepteur occaecat nulla.
+  </p>
+</div>
 ```
 
 [travis-badge]: https://travis-ci.org/thisissoon/angular-inviewport.svg?branch=master

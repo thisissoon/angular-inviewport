@@ -1,5 +1,6 @@
-export const eventPathLoadScroll = [
-  '$event.target.defaultView.innerHeight', '$event.target.defaultView.innerWidth',
+export const eventPathScroll = [
+  '$event.target.defaultView.innerHeight',
+  '$event.target.defaultView.innerWidth',
   '$event.target.defaultView.scrollY',
   '$event.target.defaultView.scrollX'
 ];
@@ -9,8 +10,9 @@ export const eventPathResize = [
   '$event.target.scrollY',
   '$event.target.scrollX'
 ];
-export const eventLoad = 'window:load';
-export const eventResize = 'window:resize';
-export const eventScroll = 'window:scroll';
+export const eventWindowResize = 'window:resize';
+export const eventWindowScroll = 'window:scroll';
 export const inViewportClass = 'class.sn-viewport-in';
 export const notInViewportClass = 'class.sn-viewport-out';
+
+export const eventScroll = 'scroll';

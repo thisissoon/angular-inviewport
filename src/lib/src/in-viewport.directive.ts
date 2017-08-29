@@ -1,12 +1,13 @@
 import {
   Directive, ElementRef, HostListener, HostBinding,
-  EventEmitter, Input, Output, OnInit, OnDestroy
+  EventEmitter, Input, Output, OnInit, OnDestroy,
+  AfterViewInit, Renderer2
 } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/takeUntil';
 
-import { Viewport } from './viewport';
+import { Viewport } from './viewport.model';
 import * as eventData from './event-data';
 
 /**
@@ -32,7 +33,7 @@ import * as eventData from './event-data';
 @Directive({
   selector: '[inViewport], [snInViewport]'
 })
-export class InViewportDirective implements OnInit, OnDestroy {
+export class InViewportDirective implements OnInit, AfterViewInit, OnDestroy {
   /**
    * If true means the element is in the browser viewport
    *
@@ -75,6 +76,14 @@ export class InViewportDirective implements OnInit, OnDestroy {
   @Input()
   public debounce = 100;
   /**
+   * A parent element to listen to scroll events from
+   *
+   * @type {HTMLElement}
+   * @memberof InViewportDirective
+   */
+  @Input('snInViewportParent')
+  public parentEl: HTMLElement;
+  /**
    * Returns true if element is in viewport
    *
    * @readonly
@@ -101,7 +110,7 @@ export class InViewportDirective implements OnInit, OnDestroy {
    * @param {ElementRef} el
    * @memberof InViewportDirective
    */
-  constructor(private el: ElementRef) { }
+  constructor(private el: ElementRef, private renderer: Renderer2) { }
   /**
    * Subscribe to `viewport$` observable which
    * will call event handler
@@ -115,6 +124,33 @@ export class InViewportDirective implements OnInit, OnDestroy {
       .subscribe((viewport) => this.calculateInViewportStatus(viewport));
   }
   /**
+   * Subscribe to `viewport$` observable which
+   * will call event handler
+   *
+   * @memberof InViewportDirective
+   */
+  public ngAfterViewInit(): void {
+    if (this.parentEl) {
+      this.renderer.listen(this.parentEl, eventData.eventScroll, this.onParentScroll.bind(this));
+    }
+  }
+  /**
+   * Get window element from parent scroll event and
+   * emit next value in `viewport$` observable
+   *
+   * @param {*} event
+   * @memberof InViewportDirective
+   */
+  public onParentScroll(event: any) {
+    const win: Window = event.path[event.path.length - 1];
+    const height = win.innerHeight;
+    const width = win.innerWidth;
+    const scrollY = win.scrollY;
+    const scrollX = win.scrollX;
+    const viewport: Viewport = { height, width, scrollY, scrollX };
+    this.viewport$.next(viewport);
+  }
+  /**
    * On window scroll/resize/load events
    * emit next `viewport$` observable value
    *
@@ -124,10 +160,9 @@ export class InViewportDirective implements OnInit, OnDestroy {
    * @param {number} scrollX
    * @memberof InViewportDirective
    */
-  @HostListener(eventData.eventLoad, eventData.eventPathLoadScroll)
-  @HostListener(eventData.eventScroll, eventData.eventPathLoadScroll)
-  @HostListener(eventData.eventResize, eventData.eventPathResize)
-  public eventHandler(
+  @HostListener(eventData.eventWindowScroll, eventData.eventPathScroll)
+  @HostListener(eventData.eventWindowResize, eventData.eventPathResize)
+  public onViewportChange(
     height: number,
     width: number,
     scrollY: number,
@@ -145,6 +180,37 @@ export class InViewportDirective implements OnInit, OnDestroy {
    */
   public calculateInViewportStatus(viewport: Viewport): void {
     const el: HTMLElement = this.el.nativeElement;
+    let inParentViewport = false;
+    let inWindowViewport = false;
+
+    if (this.parentEl) {
+      const height = this.parentEl.offsetHeight;
+      const width = this.parentEl.offsetWidth;
+      const scrollY = (this.parentEl.scrollTop + this.parentEl.offsetTop);
+      const scrollX = (this.parentEl.scrollLeft + this.parentEl.offsetLeft);
+      const parentElViewport: Viewport = { height, width, scrollY, scrollX };
+      inParentViewport = this.isInElementViewport(parentElViewport, el);
+      inWindowViewport = this.isInElementViewport(viewport, this.parentEl);
+    } else {
+      inParentViewport = true;
+      inWindowViewport = this.isInElementViewport(viewport, el);
+    }
+    const oldInViewport = this.inViewport;
+    this.inViewport = (inParentViewport && inWindowViewport);
+
+    if (oldInViewport !== this.inViewport) {
+      this.onInViewportChange.emit(this.inViewport);
+    }
+  }
+  /**
+   * Returns true if an element is currently within the `viewport`
+   *
+   * @param {Viewport} viewport
+   * @param {HTMLElement} el
+   * @returns {boolean}
+   * @memberof InViewportDirective
+   */
+  public isInElementViewport(viewport: Viewport, el: HTMLElement): boolean {
     const viewportBounds = {
       top: viewport.scrollY,
       bottom: viewport.scrollY + viewport.height,
@@ -157,8 +223,7 @@ export class InViewportDirective implements OnInit, OnDestroy {
       left: el.offsetLeft,
       right: el.offsetLeft + el.offsetWidth,
     };
-    const oldInViewport = this.inViewport;
-    this.inViewport = (
+    return (
       (
         (elBounds.top >= viewportBounds.top) && (elBounds.top <= viewportBounds.bottom) ||
         (elBounds.bottom >= viewportBounds.top) && (elBounds.bottom <= viewportBounds.bottom) ||
@@ -170,9 +235,6 @@ export class InViewportDirective implements OnInit, OnDestroy {
         (elBounds.left <= viewportBounds.left && elBounds.right >= viewportBounds.right)
       )
     );
-    if (oldInViewport !== this.inViewport) {
-      this.onInViewportChange.emit(this.inViewport);
-    }
   }
   /**
    * trigger `ngUnsubscribe` complete on

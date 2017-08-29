@@ -47,4 +47,18 @@ describe('InViewport Lib E2E Tests', function () {
     expect(element(by.css('.large-element.sn-viewport-in')).isPresent()).toBeFalsy();
   });
 
+  it('should add `in-viewport` class to element inside a scrollable element', () => {
+    browser.executeScript('window.scrollTo(0, window.innerHeight * 3)');
+    expect(element(by.css('.inside-scrollable.sn-viewport-in')).isPresent()).toBeFalsy();
+    expect(element(by.css('.inside-scrollable.sn-viewport-out')).isPresent()).toBeTruthy();
+
+    browser.executeScript(`document.getElementsByClassName('scrollable')[0].scrollTop = window.innerHeight`);
+    expect(element(by.css('.inside-scrollable.sn-viewport-in')).isPresent()).toBeTruthy();
+    expect(element(by.css('.inside-scrollable.sn-viewport-out')).isPresent()).toBeFalsy();
+
+    browser.executeScript(`document.getElementsByClassName('scrollable')[0].scrollTop = window.innerHeight * 2`);
+    expect(element(by.css('.inside-scrollable.sn-viewport-in')).isPresent()).toBeFalsy();
+    expect(element(by.css('.inside-scrollable.sn-viewport-out')).isPresent()).toBeTruthy();
+  });
+
 });

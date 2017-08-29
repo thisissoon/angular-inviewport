@@ -81,7 +81,7 @@ export class InViewportDirective implements OnInit, AfterViewInit, OnDestroy {
    * @type {HTMLElement}
    * @memberof InViewportDirective
    */
-  @Input()
+  @Input('snInViewportParent')
   public parentEl: HTMLElement;
   /**
    * Returns true if element is in viewport

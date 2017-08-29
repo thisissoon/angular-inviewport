@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/thisissoon/angular-inviewport/compare/v1.1.0...v1.2.0) (2017-08-29)
+
+
+### Features
+
+* **InViewport:** Added ability to specify a parent scroll container ([1045d86](https://github.com/thisissoon/angular-inviewport/commit/1045d86)), closes [#7](https://github.com/thisissoon/angular-inviewport/issues/7)
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/thisissoon/angular-inviewport/compare/v1.0.1...v1.1.0) (2017-08-25)
 

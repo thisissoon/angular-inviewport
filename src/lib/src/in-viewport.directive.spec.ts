@@ -15,7 +15,7 @@ describe('InViewportDirective', () => {
     node = document.createElement('p');
     node.innerText = text;
     el = new ElementRef(node);
-    el.nativeElement = {offsetTop: 100, offsetLeft: 100, offsetWidth: 300, offsetHeight: 300};
+    el.nativeElement = {offsetTop: 100, offsetLeft: 100, offsetWidth: 300, offsetHeight: 300, style: {}};
     directive = new InViewportDirective(el, <any>renderer);
     directive.ngOnInit();
   });
@@ -134,4 +134,54 @@ describe('InViewportDirective', () => {
     });
   });
 
+  describe('scrollable parent element', () => {
+    it('should add event handler for parent element scroll events', () => {
+      const div = document.createElement('div');
+      const spy = spyOn(renderer, 'listen');
+      directive.parentEl = div;
+      directive.ngAfterViewInit();
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('should do nothing if no parent element', () => {
+      const spy = spyOn(renderer, 'listen');
+      directive.ngAfterViewInit();
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should emit next value in viewport$ observable', fakeAsync(() => {
+      const spy = spyOn(directive, 'calculateInViewportStatus');
+      const event = {
+        path: [
+          { innerHeight: 768, innerWidth: 1366, scrollX: 0, scrollY: 100 }
+        ]
+      };
+      directive.onParentScroll(event);
+      tick(200);
+      expect(spy).toHaveBeenCalled();
+    }));
+
+    it('should calculate in viewport status with parent element', () => {
+      const div: any = {};
+      div.offsetTop = 1000;
+      div.offsetLeft = 0;
+      div.offsetHeight = 200;
+      div.offsetWidth = 1366;
+      div.scrollTop = 0;
+      div.scrollLeft = 0;
+      directive.parentEl = div;
+      el.nativeElement.offsetTop = 1250;
+      el.nativeElement.offsetLeft = 0;
+      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 0, scrollY: 1000});
+      expect(directive.isInViewport).toBeFalsy();
+
+      div.scrollTop = 250;
+      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 0, scrollY: 1000});
+      expect(directive.isInViewport).toBeTruthy();
+
+      div.scrollTop = 551;
+      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 0, scrollY: 1000});
+      expect(directive.isInViewport).toBeFalsy();
+    });
+  });
 });

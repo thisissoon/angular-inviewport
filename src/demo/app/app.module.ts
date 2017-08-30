@@ -1,11 +1,20 @@
-import { NgModule }      from '@angular/core';
+import { NgModule, Provider } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { InViewportModule } from 'angular-inviewport';
+import { InViewportModule, WindowRef } from 'angular-inviewport';
+
+export const getWindow = () => window;
+
+export const providers: Provider[] = [
+  {provide: WindowRef, useFactory: (getWindow)}
+];
 
 import { AppComponent }  from './app.component';
 
 @NgModule({
-  imports: [BrowserModule, InViewportModule],
+  imports: [
+    BrowserModule,
+    InViewportModule.forRoot(providers)
+  ],
   declarations: [ AppComponent ],
   bootstrap:    [ AppComponent ]
 })

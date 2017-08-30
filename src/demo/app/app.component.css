@@ -25,3 +25,8 @@
   background-color: blueviolet;
   color: white;
 }
+
+.scrollable .inside-scrollable.sn-viewport-in {
+  background-color: yellow;
+  color: black;
+}

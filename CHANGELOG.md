@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/thisissoon/angular-inviewport/compare/v1.2.0...v1.3.0) (2017-08-30)
+
+
+### Bug Fixes
+
+* **InViewport:** Use getBoundingClientRect to get element position in viewport ([8a845a3](https://github.com/thisissoon/angular-inviewport/commit/8a845a3))
+
+### Breaking Changes
+
+* **InViewport:** `InViewportModule` now has to be imported with `forRoot(providers)` where `providers` has a `WindowRef` class included which should be used to provide a window object ([8a845a3](https://github.com/thisissoon/angular-inviewport/commit/8a845a3))
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/thisissoon/angular-inviewport/compare/v1.1.0...v1.2.0) (2017-08-29)
 

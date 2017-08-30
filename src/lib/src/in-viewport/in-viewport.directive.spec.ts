@@ -1,5 +1,6 @@
 import { fakeAsync, tick } from '@angular/core/testing';
 import { ElementRef } from '@angular/core';
+import { WindowRef } from '../window/window.service';
 import { InViewportDirective } from './in-viewport.directive';
 
 describe('InViewportDirective', () => {
@@ -10,80 +11,90 @@ describe('InViewportDirective', () => {
     listen: (element: HTMLElement, event: string, callback: () => void) => { }
   };
   const text = 'Exercitation est eu reprehenderit veniam anim veniam enim laboris nisi.';
+  let windowRef: WindowRef;
+  let rectSpy = jasmine.createSpy('rectSpy');
+  let cdRef = { detectChanges: () => {} };
 
   beforeEach(() => {
+    windowRef = new WindowRef();
+    windowRef.innerWidth = 1366;
+    windowRef.innerHeight = 768;
+    rectSpy.and.returnValue({ left: 0, right: 1366, top: 0, bottom: 500 });
     node = document.createElement('p');
     node.innerText = text;
     el = new ElementRef(node);
-    el.nativeElement = {offsetTop: 100, offsetLeft: 100, offsetWidth: 300, offsetHeight: 300, style: {}};
-    directive = new InViewportDirective(el, <any>renderer);
-    directive.ngOnInit();
+    el.nativeElement.getBoundingClientRect = rectSpy;
+    directive = new InViewportDirective(el, <any>renderer, windowRef, <any>cdRef);
+    directive.ngAfterViewInit();
   });
 
   describe('element in viewport', () => {
     it('should return true for `isInViewport` property', () => {
-      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 0, scrollY: 0});
+      directive.calculateInViewportStatus();
       expect(directive.isInViewport).toBeTruthy();
     });
 
     it('should return false for `isNotInViewport` property', () => {
-      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 0, scrollY: 0});
+      directive.calculateInViewportStatus();
       expect(directive.isNotInViewport).toBeFalsy();
     });
   });
 
   describe('element NOT in viewport', () => {
     it('should return false for `isInViewport` property', () => {
-      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 0, scrollY: 500});
+      rectSpy.and.returnValue({ left: 0, right: 1366, top: 769, bottom: 1069 });
+      directive.calculateInViewportStatus();
       expect(directive.isInViewport).toBeFalsy();
 
-      el.nativeElement.offsetTop = 800;
-      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 0, scrollY: 0});
+      rectSpy.and.returnValue({ left: 1367, right: 2367, top: 0, bottom: 0 });
+      directive.calculateInViewportStatus();
       expect(directive.isInViewport).toBeFalsy();
 
-      el.nativeElement.offsetTop = 100;
-      el.nativeElement.offsetLeft = 1500;
-      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 0, scrollY: 0});
+      rectSpy.and.returnValue({ left: 0, right: 1366, top: -300, bottom: -100 });
+      directive.calculateInViewportStatus();
       expect(directive.isInViewport).toBeFalsy();
 
-      el.nativeElement.offsetTop = 100;
-      el.nativeElement.offsetLeft = 100;
-      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 500, scrollY: 0});
+      rectSpy.and.returnValue({ left: -1000, right: -500, top: 0, bottom: 500 });
+      directive.calculateInViewportStatus();
       expect(directive.isInViewport).toBeFalsy();
     });
 
     it('should return true for `isNotInViewport` property', () => {
-      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 0, scrollY: 500});
+      rectSpy.and.returnValue({ left: 0, right: 1366, top: 769, bottom: 1069 });
+      directive.calculateInViewportStatus();
       expect(directive.isNotInViewport).toBeTruthy();
 
-      el.nativeElement.offsetTop = 800;
-      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 0, scrollY: 0});
+      rectSpy.and.returnValue({ left: 1367, right: 2367, top: 0, bottom: 0 });
+      directive.calculateInViewportStatus();
       expect(directive.isNotInViewport).toBeTruthy();
 
-      el.nativeElement.offsetTop = 100;
-      el.nativeElement.offsetLeft = 1500;
-      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 0, scrollY: 0});
+      rectSpy.and.returnValue({ left: 0, right: 1366, top: -300, bottom: -100 });
+      directive.calculateInViewportStatus();
       expect(directive.isNotInViewport).toBeTruthy();
 
-      el.nativeElement.offsetTop = 100;
-      el.nativeElement.offsetLeft = 100;
-      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 500, scrollY: 0});
+      rectSpy.and.returnValue({ left: -1000, right: -500, top: 0, bottom: 500 });
+      directive.calculateInViewportStatus();
       expect(directive.isNotInViewport).toBeTruthy();
     });
   });
 
   describe('emit events', () => {
     it('should emit event when `inViewport` value changes', () => {
+      rectSpy.and.returnValue({ left: 0, right: 1366, top: -501, bottom: -1 });
       const spy = spyOn(directive.onInViewportChange, 'emit');
-      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 0, scrollY: 0});
+      directive.calculateInViewportStatus();
+      rectSpy.and.returnValue({ left: 0, right: 1366, top: 0, bottom: 500 });
+      directive.calculateInViewportStatus();
       expect(spy).toHaveBeenCalledWith(true);
 
       spy.calls.reset();
-      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 100, scrollY: 100});
+      rectSpy.and.returnValue({ left: 0, right: 1366, top: 500, bottom: 1000 });
+      directive.calculateInViewportStatus();
       expect(spy).not.toHaveBeenCalled();
 
       spy.calls.reset();
-      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 0, scrollY: 500});
+      rectSpy.and.returnValue({ left: 0, right: 1366, top: -501, bottom: -1 });
+      directive.calculateInViewportStatus();
       expect(spy).toHaveBeenCalledWith(false);
     });
   });
@@ -91,45 +102,41 @@ describe('InViewportDirective', () => {
   describe('debounce event handler', () => {
     it('should debounce event handler', fakeAsync(() => {
       const spy = spyOn(directive, 'calculateInViewportStatus');
-      directive.onViewportChange(768, 1366, 0, 0);
+      directive.onViewportChange();
       tick(100);
-      expect(spy).toHaveBeenCalledWith({width: 1366, height: 768, scrollY: 0, scrollX: 0});
+      expect(spy).toHaveBeenCalled();
       directive.ngOnDestroy();
     }));
 
     it('should only run event handler if no more events in the debounce period', fakeAsync(() => {
       const spy = spyOn(directive, 'calculateInViewportStatus');
-      directive.onViewportChange(768, 1366, 0, 0);
+      directive.onViewportChange();
       tick(99);
       expect(spy).not.toHaveBeenCalled();
-      directive.onViewportChange(768, 1366, 0, 0);
+      directive.onViewportChange();
       tick(100);
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(spy).toHaveBeenCalledWith({width: 1366, height: 768, scrollX: 0, scrollY: 0});
       directive.ngOnDestroy();
     }));
   });
 
   describe('element is larger than viewport', () => {
     it('should return true for `isInViewport` property', () => {
-      el.nativeElement.offsetHeight = 1000;
-      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 0, scrollY: 200});
+      directive.calculateInViewportStatus();
       expect(directive.isInViewport).toBeTruthy();
 
-      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 0, scrollY: 400});
+      rectSpy.and.returnValue({ left: -100, right: 1400, top: 0, bottom: 500 });
+      directive.calculateInViewportStatus();
       expect(directive.isInViewport).toBeTruthy();
 
-      el.nativeElement.offsetHeight = 300;
-      el.nativeElement.offsetWidth = 1000;
-      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 200, scrollY: 0});
+      rectSpy.and.returnValue({ left: 0, right: 1366, top: -100, bottom: 1000 });
+      directive.calculateInViewportStatus();
       expect(directive.isInViewport).toBeTruthy();
     });
 
     it('should return false for `isInViewport` property', () => {
-      el.nativeElement.offsetTop = 1000;
-      el.nativeElement.offsetleft = 0;
-      el.nativeElement.offsetWidth = 1366;
-      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 0, scrollY: 0});
+      rectSpy.and.returnValue({ left: 0, right: 1366, top: -1000, bottom: -100 });
+      directive.calculateInViewportStatus();
       expect(directive.isInViewport).toBeFalsy();
     });
   });
@@ -151,36 +158,28 @@ describe('InViewportDirective', () => {
 
     it('should emit next value in viewport$ observable', fakeAsync(() => {
       const spy = spyOn(directive, 'calculateInViewportStatus');
-      const event = {
-        path: [
-          { innerHeight: 768, innerWidth: 1366, scrollX: 0, scrollY: 100 }
-        ]
-      };
-      directive.onParentScroll(event);
+      directive.onParentScroll();
       tick(200);
       expect(spy).toHaveBeenCalled();
     }));
 
     it('should calculate in viewport status with parent element', () => {
       const div: any = {};
-      div.offsetTop = 1000;
-      div.offsetLeft = 0;
-      div.offsetHeight = 200;
-      div.offsetWidth = 1366;
-      div.scrollTop = 0;
-      div.scrollLeft = 0;
+      const parentRectSpy = jasmine.createSpy('parentRect');
+      parentRectSpy.and.returnValue({ top: 100, left: 100, right: 500, bottom: 500 });
+      rectSpy.and.returnValue({ left: 0, right: 1366, top: 501, bottom: 1000 });
+      div.getBoundingClientRect = parentRectSpy;
       directive.parentEl = div;
-      el.nativeElement.offsetTop = 1250;
-      el.nativeElement.offsetLeft = 0;
-      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 0, scrollY: 1000});
+
+      directive.calculateInViewportStatus();
       expect(directive.isInViewport).toBeFalsy();
 
-      div.scrollTop = 250;
-      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 0, scrollY: 1000});
+      rectSpy.and.returnValue({ left: 0, right: 1366, top: 100, bottom: 600 });
+      directive.calculateInViewportStatus();
       expect(directive.isInViewport).toBeTruthy();
 
-      div.scrollTop = 551;
-      directive.calculateInViewportStatus({width: 1366, height: 768, scrollX: 0, scrollY: 1000});
+      rectSpy.and.returnValue({ left: 0, right: 1366, top: -399, bottom: 99 });
+      directive.calculateInViewportStatus();
       expect(directive.isInViewport).toBeFalsy();
     });
   });

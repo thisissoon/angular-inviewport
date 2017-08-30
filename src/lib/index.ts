@@ -1,2 +1,3 @@
-export { InViewportDirective } from './src/in-viewport.directive';
-export { InViewportModule } from './src/module';
+export * from './src/in-viewport/in-viewport.directive';
+export * from './src/window/window.service';
+export * from './src/module';

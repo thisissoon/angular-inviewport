@@ -13,11 +13,17 @@ This is a simple library for [Angular][angular], implemented in the [Angular Pac
 
 `app.module.ts`
 ```ts
-import { InViewportModule } from '@thisissoon/angular-inviewport';
+import { InViewportModule, WindowRef } from '@thisissoon/angular-inviewport';
+
+// Provide window object so as to not break SSR if using universal
+export const getWindow = () => window;
+export const providers: Provider[] = [
+  { provide: WindowRef, useFactory: (getWindow) }
+];
 
 @NgModule({
   imports: [
-    InViewportModule
+    InViewportModule.forRoot(providers)
   ]
 })
 export class AppModule { }

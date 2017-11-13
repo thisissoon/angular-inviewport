@@ -183,4 +183,11 @@ describe('InViewportDirective', () => {
       expect(directive.isInViewport).toBeFalsy();
     });
   });
+
+  describe('universal render', () => {
+    it('should emit event when `inViewport` value changes', () => {
+      const result = directive.isInElementViewport({ left: 0, right: 1366, top: 0, bottom: 500 }, { getBoundingClientRect: null });
+      expect(result).toBeFalsy();
+    });
+  });
 });

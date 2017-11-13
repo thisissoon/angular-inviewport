@@ -79,11 +79,11 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
   /**
    * A parent element to listen to scroll events from
    *
-   * @type {HTMLElement}
+   * @type {*}
    * @memberof InViewportDirective
    */
   @Input('snInViewportParent')
-  public parentEl: HTMLElement;
+  public parentEl: any;
   /**
    * Returns true if element is in viewport
    *
@@ -178,7 +178,7 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
    * @memberof InViewportDirective
    */
   public calculateInViewportStatus(): void {
-    const el: HTMLElement = this.el.nativeElement;
+    const el = this.el.nativeElement;
     let inParentViewport = false;
     let inWindowViewport = false;
 
@@ -201,24 +201,30 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
    * Returns true if an element is currently within the `viewport`
    *
    * @param {Viewport} viewport
-   * @param {HTMLElement} el
+   * @param {*} el
    * @returns {boolean}
    * @memberof InViewportDirective
    */
-  public isInElementViewport(viewport: Viewport, el: HTMLElement): boolean {
-    const elBounds = el.getBoundingClientRect();
-    return (
-      (
-        (elBounds.top >= viewport.top) && (elBounds.top <= viewport.bottom) ||
-        (elBounds.bottom >= viewport.top) && (elBounds.bottom <= viewport.bottom) ||
-        (elBounds.top <= viewport.top) && (elBounds.bottom >= viewport.bottom)
-      ) &&
-      (
-        (elBounds.left >= viewport.left) && (elBounds.left <= viewport.right) ||
-        (elBounds.right >= viewport.left) && (elBounds.right <= viewport.right) ||
-        (elBounds.left <= viewport.left && elBounds.right >= viewport.right)
-      )
-    );
+  public isInElementViewport(viewport: Viewport, el: any): boolean {
+    // Check if `getBoundingClientRect` is a function in case running this code
+    // in an evironment without the DOM
+    if (typeof el.getBoundingClientRect === 'function') {
+      const elBounds = el.getBoundingClientRect();
+      return (
+        (
+          (elBounds.top >= viewport.top) && (elBounds.top <= viewport.bottom) ||
+          (elBounds.bottom >= viewport.top) && (elBounds.bottom <= viewport.bottom) ||
+          (elBounds.top <= viewport.top) && (elBounds.bottom >= viewport.bottom)
+        ) &&
+        (
+          (elBounds.left >= viewport.left) && (elBounds.left <= viewport.right) ||
+          (elBounds.right >= viewport.left) && (elBounds.right <= viewport.right) ||
+          (elBounds.left <= viewport.left && elBounds.right >= viewport.right)
+        )
+      );
+    } else {
+      return false;
+    }
   }
   /**
    * trigger `ngUnsubscribe` complete on

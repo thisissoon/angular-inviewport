@@ -1,30 +1,32 @@
 import { fakeAsync, tick } from '@angular/core/testing';
-import { ElementRef } from '@angular/core';
+import { ElementRef, NgZone } from '@angular/core';
 import { WindowRef } from '../window/window.service';
 import { InViewportDirective } from './in-viewport.directive';
+import { FakeDOMStandardElement } from '../testing/dom';
+import { MockNgZone } from '../testing/mock-ng-zone';
 
 describe('InViewportDirective', () => {
   let node: HTMLElement;
   let el: ElementRef;
   let directive: InViewportDirective;
-  const renderer = {
-    listen: (element: HTMLElement, event: string, callback: () => void) => { }
-  };
   const text = 'Exercitation est eu reprehenderit veniam anim veniam enim laboris nisi.';
   let windowRef: WindowRef;
   let rectSpy = jasmine.createSpy('rectSpy');
   let cdRef = { detectChanges: () => {} };
+  let zone: NgZone;
 
   beforeEach(() => {
-    windowRef = new WindowRef();
+    windowRef = new FakeDOMStandardElement('window') as any as WindowRef;
     windowRef.innerWidth = 1366;
     windowRef.innerHeight = 768;
+    (<any>windowRef).addEventListener = () => {};
     rectSpy.and.returnValue({ left: 0, right: 1366, top: 0, bottom: 500 });
     node = document.createElement('p');
     node.innerText = text;
     el = new ElementRef(node);
     el.nativeElement.getBoundingClientRect = rectSpy;
-    directive = new InViewportDirective(el, <any>renderer, windowRef, <any>cdRef);
+    zone = new MockNgZone();
+    directive = new InViewportDirective(el, windowRef, <any>cdRef, zone);
     directive.ngAfterViewInit();
   });
 
@@ -144,16 +146,10 @@ describe('InViewportDirective', () => {
   describe('scrollable parent element', () => {
     it('should add event handler for parent element scroll events', () => {
       const div = document.createElement('div');
-      const spy = spyOn(renderer, 'listen');
+      const spy = spyOn(div, 'addEventListener');
       directive.parentEl = div;
       directive.ngAfterViewInit();
       expect(spy).toHaveBeenCalled();
-    });
-
-    it('should do nothing if no parent element', () => {
-      const spy = spyOn(renderer, 'listen');
-      directive.ngAfterViewInit();
-      expect(spy).not.toHaveBeenCalled();
     });
 
     it('should emit next value in viewport$ observable', fakeAsync(() => {

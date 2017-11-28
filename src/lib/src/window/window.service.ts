@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
  * in platforms where `window` does not exists
  *
  * @export
- * @class WindowRef
  */
 @Injectable()
 export class WindowRef {

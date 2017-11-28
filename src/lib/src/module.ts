@@ -13,7 +13,6 @@ const defaultProviders: Provider[] = [
  * sn-viewport-in or sn-viewport-out class to the element.
  *
  * @export
- * @class InViewportModule
  */
 @NgModule({
   declarations: [InViewportDirective],
@@ -25,8 +24,6 @@ export class InViewportModule {
    * but allows the module to still be imported into other modules without reproviding
    * services.
    *
-   * @static
-   * @returns {ModuleWithProviders}
    * @memberof InViewportModule
    */
   public static forRoot(providers: Provider[] = defaultProviders): ModuleWithProviders {

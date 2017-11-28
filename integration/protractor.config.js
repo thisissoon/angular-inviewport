@@ -6,7 +6,10 @@ exports.config = {
     './e2e/**/*.e2e-spec.js'
   ],
   capabilities: {
-    'browserName': 'chrome'
+    browserName: 'chrome',
+    chromeOptions: {
+      args: ['--headless', '--no-sandbox', '--window-size=1024,768']
+    }
   },
   directConnect: true,
   baseUrl: 'http://localhost:8080/',

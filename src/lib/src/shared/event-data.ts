@@ -10,8 +10,8 @@ export const eventPathResize = [
   '$event.target.scrollY',
   '$event.target.scrollX'
 ];
-export const eventWindowResize = 'window:resize';
-export const eventWindowScroll = 'window:scroll';
+export const eventWindowResize = 'resize';
+export const eventWindowScroll = 'scroll';
 export const inViewportClass = 'class.sn-viewport-in';
 export const notInViewportClass = 'class.sn-viewport-out';
 

@@ -1,11 +1,15 @@
 import {
-  Directive, ElementRef, HostListener, HostBinding,
-  EventEmitter, Input, Output, OnDestroy, AfterViewInit,
-  Renderer2, ChangeDetectorRef
+  Directive, ElementRef, HostBinding, EventEmitter,
+  Input, Output, OnDestroy, AfterViewInit,
+  ChangeDetectorRef, NgZone
 } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import 'rxjs/add/operator/auditTime';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/takeUntil';
+import 'rxjs/add/observable/merge';
 
 import { WindowRef } from '../window/window.service';
 import { Viewport } from '../shared/viewport.model';
@@ -123,13 +127,16 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
   /**
    * Creates an instance of InViewportDirective.
    * @param {ElementRef} el
+   * @param {WindowRef} win
+   * @param {ChangeDetectorRef} cdRef
+   * @param {NgZone} ngZone
    * @memberof InViewportDirective
    */
   constructor(
     private el: ElementRef,
-    private renderer: Renderer2,
     private win: WindowRef,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private ngZone: NgZone
   ) { }
   /**
    * Subscribe to `viewport$` observable which
@@ -146,8 +153,22 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
       .debounceTime(this.debounce)
       .subscribe(() => this.calculateInViewportStatus());
 
+    // Listen for window scroll/resize events.
+    this.ngZone.runOutsideAngular(() => {
+      Observable.merge(
+          fromEvent(this.win as any, eventData.eventWindowResize),
+          fromEvent(this.win as any, eventData.eventWindowScroll)
+        )
+        .auditTime(this.debounce)
+        .subscribe(() => this.onViewportChange());
+    });
+
     if (this.parentEl) {
-      this.renderer.listen(this.parentEl, eventData.eventScroll, this.onParentScroll.bind(this));
+      this.ngZone.runOutsideAngular(() => {
+        fromEvent(this.parentEl, eventData.eventScroll)
+          .auditTime(this.debounce)
+          .subscribe(() => this.onParentScroll());
+      });
     }
   }
   /**
@@ -165,8 +186,6 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
    *
    * @memberof InViewportDirective
    */
-  @HostListener(eventData.eventWindowScroll)
-  @HostListener(eventData.eventWindowResize)
   public onViewportChange(): void {
     this.viewport$.next();
   }
@@ -174,7 +193,6 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
    * Calculate inViewport status and emit event
    * when viewport status has changed
    *
-   * @param {Viewport} viewport
    * @memberof InViewportDirective
    */
   public calculateInViewportStatus(): void {
@@ -194,7 +212,7 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
     this.inViewport = (inParentViewport && inWindowViewport);
 
     if (oldInViewport !== this.inViewport) {
-      this.onInViewportChange.emit(this.inViewport);
+      this.ngZone.run(() => this.onInViewportChange.emit(this.inViewport));
     }
   }
   /**

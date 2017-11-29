@@ -1,1 +1,1 @@
-export * from './src/app/in-viewport/in-viewport.module';
+export * from './src/app/in-viewport';

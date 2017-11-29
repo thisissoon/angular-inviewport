@@ -2,7 +2,7 @@ dist: trusty
 sudo: false
 language: node_js
 node_js:
-  - "6"
+  - "8"
 os:
   - linux
 before_install:
@@ -12,9 +12,9 @@ before_install:
   # Install latest chrome.
   - export CHROME_BIN=chromium-browser
 install:
-  - npm install
+  - npm install --no-progress
 script:
   - npm run lint
-  - npm run test:once
-  - npm run integration
+  - npm run test -- --no-progress --code-coverage --single-run
+  - npm run e2e -- --no-progress
   - npm run coverage

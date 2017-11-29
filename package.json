@@ -52,16 +52,16 @@
     "postrelease": "npm run build"
   },
   "peerDependencies": {
-    "@angular/core": ">=4.0.0 <5.0.0 || >=4.0.0-beta <5.0.0",
+    "@angular/core": ">=4.0.0 <6.0.0 || >=4.0.0-beta <6.0.0",
     "rxjs": ">=5.0.0 <6.0.0"
   },
   "devDependencies": {
-    "@angular/common": "^4.3.4",
-    "@angular/compiler": "^4.3.4",
-    "@angular/compiler-cli": "^4.3.4",
-    "@angular/core": "^4.3.4",
-    "@angular/platform-browser": "^4.3.4",
-    "@angular/platform-browser-dynamic": "^4.3.4",
+    "@angular/common": "^5.0.0",
+    "@angular/compiler": "^5.0.0",
+    "@angular/compiler-cli": "^5.0.0",
+    "@angular/core": "^5.0.0",
+    "@angular/platform-browser": "^5.0.0",
+    "@angular/platform-browser-dynamic": "^5.0.0",
     "@types/jasmine": "2.5.36",
     "@types/node": "^6.0.46",
     "camelcase": "^4.0.0",
@@ -81,17 +81,17 @@
     "karma-spec-reporter": "0.0.31",
     "lite-server": "^2.2.2",
     "rimraf": "^2.6.1",
-    "rollup": "^0.42.0",
-    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup": "^0.52.0",
+    "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-sourcemaps": "^0.4.1",
+    "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-uglify": "^2.0.1",
-    "rxjs": "5.4.3",
+    "rxjs": "5.5.2",
     "standard-version": "^4.2.0",
     "systemjs": "^0.19.40",
-    "tslint": "^4.4.2",
-    "typescript": "~2.3.0",
-    "zone.js": "^0.8.4"
+    "tslint": "^5.7.0",
+    "typescript": "~2.4.2",
+    "zone.js": "^0.8.14"
   },
   "dependencies": {}
 }

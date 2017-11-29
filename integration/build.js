@@ -12,8 +12,8 @@ const srcDir = path.join(__dirname, 'src/');
 const distDir = path.join(__dirname, 'dist/');
 const aotDir = path.join(__dirname, 'aot/');
 const rollupConfig = {
-  entry: `${srcDir}/main-aot.js`,
-  sourceMap: false,
+  input: `${srcDir}/main-aot.js`,
+  sourcemap: false,
   format: 'iife',
   onwarn: function (warning) {
     // Skip certain warnings
@@ -24,13 +24,13 @@ const rollupConfig = {
   plugins: [
     nodeResolve({ jsnext: true, module: true }),
     commonjs(),
-    uglify()
+    uglify(),
   ]
 };
 
 return Promise.resolve()
   // Compile using ngc.
-  .then(() => ngc({ project: `./tsconfig.aot.json` }))
+  .then(() => ngc([ '--project', `./tsconfig.aot.json` ]))
   // Create dist dir.
   .then(() => _recursiveMkDir(distDir))
   // Copy files.

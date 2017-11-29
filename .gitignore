@@ -13,3 +13,5 @@ e2e/**/*.js
 e2e/**/*.js.map
 coverage
 .idea/
+*.ngsummary.json*
+*.ngfactory.js*

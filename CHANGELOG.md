@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.0-rc.1"></a>
+# [1.4.0-rc.1](https://github.com/thisissoon/angular-inviewport/compare/v1.4.0-rc.0...v1.4.0-rc.1) (2017-11-29)
+
+
+### Bug Fixes
+
+* **packagr:** export all symbol reference in public_api.ts ([2d0eaec](https://github.com/thisissoon/angular-inviewport/commit/2d0eaec))
+
+
+
 <a name="1.4.0-rc.0"></a>
 # [1.4.0-rc.0](https://github.com/thisissoon/angular-inviewport/compare/v1.3.2...v1.4.0-rc.0) (2017-11-29)
 

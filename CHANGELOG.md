@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.0-rc.0"></a>
+# [1.4.0-rc.0](https://github.com/thisissoon/angular-inviewport/compare/v1.3.2...v1.4.0-rc.0) (2017-11-29)
+
+### Breaking Changes
+
+* **InViewport:** Changed `(onInViewportChange)` output to `(inViewportChange)`. Changed `[snInViewportParent]` input to `[parent]`. This was to pass default linting options with the angular cli ([f86f1c6](https://github.com/thisissoon/angular-inviewport/commit/f86f1c6))
+
+
 <a name="1.3.2"></a>
 ## [1.3.2](https://github.com/thisissoon/angular-inviewport/compare/v1.3.1...v1.3.2) (2017-11-28)
 

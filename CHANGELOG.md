@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/thisissoon/angular-inviewport/compare/v1.4.0-rc.1...v1.4.0) (2017-11-29)
+
+
+
 <a name="1.4.0-rc.1"></a>
 # [1.4.0-rc.1](https://github.com/thisissoon/angular-inviewport/compare/v1.4.0-rc.0...v1.4.0-rc.1) (2017-11-29)
 

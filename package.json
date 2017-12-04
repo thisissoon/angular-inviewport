@@ -12,10 +12,6 @@
     "scroll",
     "resize"
   ],
-  "main": "./bundles/angular-inviewport.umd.js",
-  "module": "./@thisissoon/angular-inviewport.es5.js",
-  "es2015": "./@thisissoon/angular-inviewport.js",
-  "typings": "./angular-inviewport.d.ts",
   "author": "SOON_ <dorks@thisissoon.com>",
   "contributors": [
     "Ed Opare-Aryee <ed@thisissoon.com>",
@@ -73,7 +69,7 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-spec-reporter": "0.0.31",
-    "ng-packagr": "^1.6.0",
+    "ng-packagr": "^2.0.0-rc.4",
     "protractor": "~5.1.2",
     "rxjs": "^5.5.2",
     "standard-version": "^4.2.0",

@@ -1,8 +1,9 @@
 import {
   Directive, ElementRef, HostBinding, EventEmitter,
   Input, Output, OnDestroy, AfterViewInit,
-  ChangeDetectorRef, NgZone
+  ChangeDetectorRef, NgZone, PLATFORM_ID, Inject
 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { fromEvent } from 'rxjs/observable/fromEvent';
@@ -136,7 +137,8 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
     private el: ElementRef,
     private win: WindowRef,
     private cdRef: ChangeDetectorRef,
-    private ngZone: NgZone
+    public ngZone: NgZone,
+    @Inject(PLATFORM_ID) private platformId
   ) { }
   /**
    * Subscribe to `viewport$` observable which
@@ -154,21 +156,23 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
       .subscribe(() => this.calculateInViewportStatus());
 
     // Listen for window scroll/resize events.
-    this.ngZone.runOutsideAngular(() => {
-      Observable.merge(
-          fromEvent(this.win as any, eventData.eventWindowResize),
-          fromEvent(this.win as any, eventData.eventWindowScroll)
-        )
-        .auditTime(this.debounce)
-        .subscribe(() => this.onViewportChange());
-    });
-
-    if (this.parent) {
+    if (isPlatformBrowser(this.platformId)) {
       this.ngZone.runOutsideAngular(() => {
-        fromEvent(this.parent, eventData.eventScroll)
+        Observable.merge(
+            fromEvent(this.win as any, eventData.eventWindowResize),
+            fromEvent(this.win as any, eventData.eventWindowScroll)
+          )
           .auditTime(this.debounce)
-          .subscribe(() => this.onParentScroll());
+          .subscribe(() => this.onViewportChange());
       });
+
+      if (this.parent) {
+        this.ngZone.runOutsideAngular(() => {
+          fromEvent(this.parent, eventData.eventScroll)
+            .auditTime(this.debounce)
+            .subscribe(() => this.onParentScroll());
+        });
+      }
     }
   }
   /**

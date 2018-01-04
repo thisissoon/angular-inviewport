@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.3"></a>
+## [1.4.3](https://github.com/thisissoon/angular-inviewport/compare/v1.4.2...v1.4.3) (2018-01-04)
+
+
+### Bug Fixes
+
+* **InViewport:** Fixed a regression when used in angular universal app ([5c210c1](https://github.com/thisissoon/angular-inviewport/commit/5c210c1))
+
+
+
 <a name="1.4.2"></a>
 ## [1.4.2](https://github.com/thisissoon/angular-inviewport/compare/v1.4.1...v1.4.2) (2017-12-04)
 

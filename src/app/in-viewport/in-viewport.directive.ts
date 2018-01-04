@@ -137,7 +137,7 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
     private el: ElementRef,
     private win: WindowRef,
     private cdRef: ChangeDetectorRef,
-    private ngZone: NgZone,
+    public ngZone: NgZone,
     @Inject(PLATFORM_ID) private platformId
   ) { }
   /**

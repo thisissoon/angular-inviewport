@@ -1,5 +1,6 @@
 import { fakeAsync, tick } from '@angular/core/testing';
 import { ElementRef, NgZone } from '@angular/core';
+import { ɵPLATFORM_BROWSER_ID, ɵPLATFORM_SERVER_ID } from '@angular/common';
 import { WindowRef } from './window/window.service';
 import { InViewportDirective } from './in-viewport.directive';
 import { FakeDOMStandardElement } from '../testing/dom';
@@ -26,7 +27,7 @@ describe('InViewportDirective', () => {
     el = new ElementRef(node);
     el.nativeElement.getBoundingClientRect = rectSpy;
     zone = new MockNgZone();
-    directive = new InViewportDirective(el, windowRef, <any>cdRef, zone);
+    directive = new InViewportDirective(el, windowRef, <any>cdRef, zone, ɵPLATFORM_BROWSER_ID);
     directive.ngAfterViewInit();
   });
 
@@ -184,6 +185,19 @@ describe('InViewportDirective', () => {
     it('should emit event when `inViewport` value changes', () => {
       const result = directive.isInElementViewport({ left: 0, right: 1366, top: 0, bottom: 500 }, { getBoundingClientRect: null });
       expect(result).toBeFalsy();
+    });
+
+    it('should NOT subscribe to DOM event observables', () => {
+      directive = new InViewportDirective(el, windowRef, <any>cdRef, zone, ɵPLATFORM_BROWSER_ID);
+      const spy = spyOn(directive.ngZone, 'runOutsideAngular');
+      directive.ngAfterViewInit();
+      expect(spy).toHaveBeenCalled();
+
+      spy.calls.reset();
+      directive = new InViewportDirective(el, windowRef, <any>cdRef, zone, ɵPLATFORM_SERVER_ID);
+      directive.ngAfterViewInit();
+
+      expect(spy).not.toHaveBeenCalled();
     });
   });
 });

@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-rc.0"></a>
+# [2.0.0-rc.0](https://github.com/thisissoon/angular-inviewport/compare/v1.4.3...v2.0.0-rc.0) (2018-01-23)
+
+
+### Features
+
+* **InViewport:** Updating WindowRef service with more mock properties and functions ([6c0264a](https://github.com/thisissoon/angular-inviewport/commit/6c0264a))
+
+
+### BREAKING CHANGES
+
+* **InViewport:** inViewportModule.forRoot function now only accepts a single argument which should
+be a reference to window or a mock window implementation
+
+
+
 <a name="1.4.3"></a>
 ## [1.4.3](https://github.com/thisissoon/angular-inviewport/compare/v1.4.2...v1.4.3) (2018-01-04)
 

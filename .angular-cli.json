@@ -53,7 +53,10 @@
       "config": "./karma.conf.js"
     },
     "codeCoverage": {
-      "exclude": ["./src/app/testing/*.ts"]
+      "exclude": [
+        "./src/app/testing/*.ts",
+        "./src/app/in-viewport/window/window.service.ts"
+      ]
     }
   },
   "defaults": {

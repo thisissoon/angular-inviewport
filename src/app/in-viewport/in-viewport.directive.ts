@@ -1,7 +1,7 @@
 import {
   Directive, ElementRef, HostBinding, EventEmitter,
   Input, Output, OnDestroy, AfterViewInit,
-  ChangeDetectorRef, NgZone, PLATFORM_ID, Inject
+  ChangeDetectorRef, NgZone, Inject
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -11,8 +11,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/observable/merge';
 
-import { WindowRef } from './window/window.service';
-import { WINDOW } from './window/window-token';
+import { WindowRef } from './window/window-ref.service';
 import { Viewport } from './shared/viewport.model';
 import * as eventData from './shared/event-data';
 
@@ -135,7 +134,7 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
    */
   constructor(
     private el: ElementRef,
-    @Inject(WINDOW) private windowRef: WindowRef,
+    private windowRef: WindowRef,
     private cdRef: ChangeDetectorRef,
     public ngZone: NgZone
   ) { }

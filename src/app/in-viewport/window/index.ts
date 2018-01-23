@@ -1,2 +1,1 @@
-export * from './window.service';
-export * from './window-token';
+export * from './window-ref.service';

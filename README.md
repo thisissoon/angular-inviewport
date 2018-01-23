@@ -26,10 +26,14 @@ yarn add @thisissoon/angular-inviewport
 ```ts
 import { InViewportModule } from '@thisissoon/angular-inviewport';
 
+const providers = [
+  { provide: WindowRef, useValue: window }
+];
+
 @NgModule({
   imports: [
-    // pass window object to forRoot function
-    InViewportModule.forRoot(window)
+    // provide WindowRef class by using an window object
+    InViewportModule.forRoot(providers)
   ]
 })
 export class AppModule { }

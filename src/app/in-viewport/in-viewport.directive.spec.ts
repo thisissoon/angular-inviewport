@@ -1,6 +1,6 @@
 import { fakeAsync, tick } from '@angular/core/testing';
 import { ElementRef, NgZone } from '@angular/core';
-import { WindowRef } from './window/window.service';
+import { WindowRef } from './window/window-ref.service';
 import { InViewportDirective } from './in-viewport.directive';
 import { FakeDOMStandardElement } from '../testing/dom';
 import { MockNgZone } from '../testing/mock-ng-zone';

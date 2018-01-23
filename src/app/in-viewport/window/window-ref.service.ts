@@ -1,10 +1,13 @@
+import { Injectable } from '@angular/core';
+
 /**
- * Class that acts a reference to window object
+ * Service that acts a reference to window object
  * in platforms where `window` does not exists
  *
  * @export
- * @class WindowRef
+ * @property WindowRef
  */
+@Injectable()
 export class WindowRef {
   closed = null;
   defaultStatus = null;
@@ -57,7 +60,7 @@ export class WindowRef {
   resizeBy() {}
   resizeTo() {}
   removeEventListener() {}
-  scroll() { }
+  scroll() {}
   scrollBy() {}
   scrollTo() {}
   setInterval() {}

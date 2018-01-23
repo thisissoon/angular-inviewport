@@ -2,7 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { InViewportModule } from './in-viewport';
+import { InViewportModule, WindowRef } from './in-viewport';
+
+const providers = [
+  { provide: WindowRef, useValue: window }
+];
 
 @NgModule({
   declarations: [
@@ -10,7 +14,7 @@ import { InViewportModule } from './in-viewport';
   ],
   imports: [
     BrowserModule,
-    InViewportModule.forRoot(window)
+    InViewportModule.forRoot(providers)
   ],
   bootstrap: [AppComponent]
 })

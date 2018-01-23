@@ -1,10 +1,11 @@
 import { NgModule, ModuleWithProviders, Provider } from '@angular/core';
-import { WindowRef } from './window/window.service';
-import { WINDOW } from './window/window-token';
+import { WindowRef } from './window/window-ref.service';
 
 import { InViewportDirective } from './in-viewport.directive';
 
-const defaultWindowRef = new WindowRef();
+const defaultProviders = [
+  WindowRef
+];
 
 /**
  * A simple lightweight library for Angular 2/4+ with other dependencies
@@ -25,16 +26,14 @@ export class InViewportModule {
    * services.
    *
    * @static
-   * @param {any} [windowRef=defaultWindowRef]
+   * @param {Provider[]} [providers]
    * @returns {ModuleWithProviders}
    * @memberof InViewportModule
    */
-  public static forRoot(windowRef: any = defaultWindowRef): ModuleWithProviders {
+  public static forRoot(providers: Provider[] = defaultProviders): ModuleWithProviders {
     return {
       ngModule: InViewportModule,
-      providers: [
-        { provide: WINDOW, useValue: windowRef }
-      ]
+      providers: providers
     };
   }
 }

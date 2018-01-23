@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/thisissoon/angular-inviewport/compare/v2.0.0...v2.1.0) (2018-01-23)
+
+
+### Bug Fixes
+
+* **InViewport:** Fix module not working with aot ([92ace50](https://github.com/thisissoon/angular-inviewport/commit/92ace50))
+
+
+### BREAKING CHANGES
+
+* **InViewport:** Must provide the whole Provide object when providing window for browser module
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/thisissoon/angular-inviewport/compare/v2.0.0-rc.0...v2.0.0) (2018-01-23)
 

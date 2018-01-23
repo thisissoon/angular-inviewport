@@ -55,7 +55,7 @@
     "codeCoverage": {
       "exclude": [
         "./src/app/testing/*.ts",
-        "./src/app/in-viewport/window/window.service.ts"
+        "./src/app/in-viewport/window/window-ref.service.ts"
       ]
     }
   },

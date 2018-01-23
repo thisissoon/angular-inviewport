@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.1.1"></a>
+## [2.1.1](https://github.com/thisissoon/angular-inviewport/compare/v2.1.0...v2.1.1) (2018-01-23)
+
+
+### Bug Fixes
+
+* **WindowRef:** add arguments to window ref functions ([d512399](https://github.com/thisissoon/angular-inviewport/commit/d512399))
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/thisissoon/angular-inviewport/compare/v2.0.0...v2.1.0) (2018-01-23)
 

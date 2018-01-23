@@ -6,3 +6,4 @@ export {
 } from './src/app/in-viewport/shared/event-data';
 export { Viewport } from './src/app/in-viewport/shared/viewport.model';
 export { WindowRef } from './src/app/in-viewport/window/window.service';
+export { WINDOW } from './src/app/in-viewport/window/window-token';

@@ -3,7 +3,6 @@ import {
   Input, Output, OnDestroy, AfterViewInit,
   ChangeDetectorRef, NgZone, PLATFORM_ID, Inject
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { fromEvent } from 'rxjs/observable/fromEvent';
@@ -13,6 +12,7 @@ import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/observable/merge';
 
 import { WindowRef } from './window/window.service';
+import { WINDOW } from './window/window-token';
 import { Viewport } from './shared/viewport.model';
 import * as eventData from './shared/event-data';
 
@@ -37,7 +37,7 @@ import * as eventData from './shared/event-data';
  * @class InViewportDirective
  */
 @Directive({
-  selector: '[inViewport], [snInViewport]'
+  selector: '[snInViewport]'
 })
 export class InViewportDirective implements AfterViewInit, OnDestroy {
   /**
@@ -119,26 +119,25 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
    * @memberof InViewportDirective
    */
   public get viewport(): Viewport {
-    const bottom = this.win.innerHeight;
+    const bottom = this.windowRef.innerHeight;
     const left = 0;
-    const right = this.win.innerWidth;
+    const right = this.windowRef.innerWidth;
     const top = 0;
     return { bottom, right, left, top };
   }
   /**
    * Creates an instance of InViewportDirective.
    * @param {ElementRef} el
-   * @param {WindowRef} win
+   * @param {WindowRef} windowRef
    * @param {ChangeDetectorRef} cdRef
    * @param {NgZone} ngZone
    * @memberof InViewportDirective
    */
   constructor(
     private el: ElementRef,
-    private win: WindowRef,
+    @Inject(WINDOW) private windowRef: WindowRef,
     private cdRef: ChangeDetectorRef,
-    public ngZone: NgZone,
-    @Inject(PLATFORM_ID) private platformId
+    public ngZone: NgZone
   ) { }
   /**
    * Subscribe to `viewport$` observable which
@@ -156,23 +155,21 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
       .subscribe(() => this.calculateInViewportStatus());
 
     // Listen for window scroll/resize events.
-    if (isPlatformBrowser(this.platformId)) {
-      this.ngZone.runOutsideAngular(() => {
-        Observable.merge(
-            fromEvent(this.win as any, eventData.eventWindowResize),
-            fromEvent(this.win as any, eventData.eventWindowScroll)
-          )
-          .auditTime(this.debounce)
-          .subscribe(() => this.onViewportChange());
-      });
+    this.ngZone.runOutsideAngular(() => {
+      Observable.merge(
+          fromEvent(this.windowRef as any, eventData.eventWindowResize),
+          fromEvent(this.windowRef as any, eventData.eventWindowScroll)
+        )
+        .auditTime(this.debounce)
+        .subscribe(() => this.onViewportChange());
+    });
 
-      if (this.parent) {
-        this.ngZone.runOutsideAngular(() => {
-          fromEvent(this.parent, eventData.eventScroll)
-            .auditTime(this.debounce)
-            .subscribe(() => this.onParentScroll());
-        });
-      }
+    if (this.parent) {
+      this.ngZone.runOutsideAngular(() => {
+        fromEvent(this.parent, eventData.eventScroll)
+          .auditTime(this.debounce)
+          .subscribe(() => this.onParentScroll());
+      });
     }
   }
   /**

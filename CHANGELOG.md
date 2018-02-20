@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/thisissoon/angular-inviewport/compare/v2.1.1...v2.2.0) (2018-02-20)
+
+
+### Bug Fixes
+
+* fix peer dependancy for [@angular](https://github.com/angular)/core to 5.x.x ([20f39d4](https://github.com/thisissoon/angular-inviewport/commit/20f39d4))
+
+
+### Features
+
+* **InViewport:** export directive to be able to trigger inviewport check manually ([9903a0c](https://github.com/thisissoon/angular-inviewport/commit/9903a0c)), closes [#9](https://github.com/thisissoon/angular-inviewport/issues/9)
+
+
+
 <a name="2.1.1"></a>
 ## [2.1.1](https://github.com/thisissoon/angular-inviewport/compare/v2.1.0...v2.1.1) (2018-01-23)
 

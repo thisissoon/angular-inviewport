@@ -22,7 +22,7 @@ import * as eventData from './shared/event-data';
  * to the element.
  *
  * @example
- * ```
+ * ```html
  * <p
  *  class="foo"
  *  snInViewport
@@ -31,9 +31,6 @@ import * as eventData from './shared/event-data';
  *  Amet tempor excepteur occaecat nulla.
  * </p>
  * ```
- *
- * @export
- * @class InViewportDirective
  */
 @Directive({
   selector: '[snInViewport]'
@@ -42,16 +39,12 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
   /**
    * If true means the element is in the browser viewport
    *
-   * @private
-   * @type {boolean}
    * @memberof InViewportDirective
    */
   private inViewport: boolean;
   /**
    * Observable that returns the size of the viewport
    *
-   * @private
-   * @type {Subject<void>}
    * @memberof InViewportDirective
    */
   private viewport$ = new Subject<void>();
@@ -59,13 +52,12 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
    * Completes on component destroy lifecycle event
    * use to handle unsubscription from infinite observables
    *
-   * @type {Subject<void>}
    * @memberof InViewportDirective
    */
   private ngUnsubscribe$ = new Subject<void>();
   /**
    * Emits event when `inViewport` value changes
-   * @type {EventEmitter<boolean>}
+   *
    * @memberof InViewportDirective
    */
   @Output()
@@ -74,8 +66,6 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
    * Amount of time in ms to wait for other scroll events
    * before running event handler
    *
-   * @type {number}
-   * @default 100
    * @memberof InViewportDirective
    */
   @Input()
@@ -83,7 +73,6 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
   /**
    * A parent element to listen to scroll events from
    *
-   * @type {*}
    * @memberof InViewportDirective
    */
   @Input()
@@ -91,8 +80,6 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
   /**
    * Returns true if element is in viewport
    *
-   * @readonly
-   * @type {boolean}
    * @memberof InViewportDirective
    */
   @HostBinding(eventData.inViewportClass)
@@ -103,7 +90,7 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
    * Returns true if element is not in viewport
    *
    * @readonly
-   * @type {boolean}
+   *
    * @memberof InViewportDirective
    */
   @HostBinding(eventData.notInViewportClass)
@@ -113,8 +100,6 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
   /**
    * Get window viewport values
    *
-   * @readonly
-   * @type {Viewport}
    * @memberof InViewportDirective
    */
   public get viewport(): Viewport {
@@ -126,10 +111,7 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
   }
   /**
    * Creates an instance of InViewportDirective.
-   * @param {ElementRef} el
-   * @param {WindowRef} windowRef
-   * @param {ChangeDetectorRef} cdRef
-   * @param {NgZone} ngZone
+   *
    * @memberof InViewportDirective
    */
   constructor(
@@ -218,9 +200,6 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
   /**
    * Returns true if an element is currently within the `viewport`
    *
-   * @param {Viewport} viewport
-   * @param {*} el
-   * @returns {boolean}
    * @memberof InViewportDirective
    */
   public isInElementViewport(viewport: Viewport, el: any): boolean {

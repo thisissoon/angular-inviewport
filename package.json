@@ -1,11 +1,9 @@
 {
   "name": "@thisissoon/angular-inviewport",
   "version": "2.1.1",
-  "description": "A simple lightweight library for Angular 2/4+ with other dependencies that detects when an element is within the browser viewport and adds a sn-viewport-in or sn-viewport-out class to the element.",
+  "description": "A simple lightweight library for Angular with no other dependencies that detects when an element is within the browser viewport and adds a sn-viewport-in or sn-viewport-out class to the element.",
   "keywords": [
     "angular",
-    "angular 2",
-    "angular 4",
     "angular 5",
     "directive",
     "viewport",
@@ -19,7 +17,10 @@
     "Sergey Krilov <serg.kr@gmail.com>"
   ],
   "license": "MIT",
-  "repository": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thisissoon/angular-inviewport"
+  },
   "engines": {
     "node": ">= 6.9.0",
     "npm": ">= 3.0.0"
@@ -32,7 +33,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "coverage": "coveralls < coverage/lcov.info",
-    "packagr": "ng-packagr -p ng-package.json",
+    "packagr": "ng-packagr -p package.json",
     "release": "standard-version",
     "postrelease": "npm run packagr"
   },
@@ -70,7 +71,7 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-spec-reporter": "0.0.31",
-    "ng-packagr": "^2.0.0-rc.4",
+    "ng-packagr": "^2.0.0",
     "protractor": "~5.1.2",
     "rxjs": "^5.5.6",
     "standard-version": "^4.3.0",
@@ -82,6 +83,12 @@
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "ngPackage": {
+    "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
+    "lib": {
+      "entryFile": "src/index.ts"
     }
   }
 }

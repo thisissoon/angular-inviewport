@@ -1,15 +1,13 @@
 import {
   Directive, ElementRef, HostBinding, EventEmitter,
   Input, Output, OnDestroy, AfterViewInit,
-  ChangeDetectorRef, NgZone, Inject
+  ChangeDetectorRef, NgZone
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { fromEvent } from 'rxjs/observable/fromEvent';
-import 'rxjs/add/operator/auditTime';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/takeUntil';
-import 'rxjs/add/observable/merge';
+import { merge } from 'rxjs/observable/merge';
+import { auditTime, debounceTime, takeUntil } from 'rxjs/operators';
 
 import { WindowRef } from './window/window-ref.service';
 import { Viewport } from './shared/viewport.model';
@@ -131,24 +129,32 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
     this.cdRef.detectChanges();
 
     this.viewport$
-      .takeUntil(this.ngUnsubscribe$)
-      .debounceTime(this.debounce)
+      .pipe(
+        debounceTime(this.debounce),
+        takeUntil(this.ngUnsubscribe$)
+      )
       .subscribe(() => this.calculateInViewportStatus());
 
     // Listen for window scroll/resize events.
     this.ngZone.runOutsideAngular(() => {
-      Observable.merge(
-          fromEvent(this.windowRef as any, eventData.eventWindowResize),
-          fromEvent(this.windowRef as any, eventData.eventWindowScroll)
-        )
-        .auditTime(this.debounce)
-        .subscribe(() => this.onViewportChange());
+      merge(
+        fromEvent(this.windowRef as any, eventData.eventWindowResize),
+        fromEvent(this.windowRef as any, eventData.eventWindowScroll)
+      )
+      .pipe(
+        auditTime(this.debounce),
+        takeUntil(this.ngUnsubscribe$)
+      )
+      .subscribe(() => this.onViewportChange());
     });
 
     if (this.parent) {
       this.ngZone.runOutsideAngular(() => {
         fromEvent(this.parent, eventData.eventScroll)
-          .auditTime(this.debounce)
+          .pipe(
+            auditTime(this.debounce),
+            takeUntil(this.ngUnsubscribe$)
+          )
           .subscribe(() => this.onParentScroll());
       });
     }

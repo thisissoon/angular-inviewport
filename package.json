@@ -37,24 +37,23 @@
     "postrelease": "npm run packagr"
   },
   "private": false,
-  "dependencies": {},
   "peerDependencies": {
     "@angular/core": ">=4.0.0 <6.0.0 || >=4.0.0-beta <6.0.0",
     "rxjs": ">=5.0.0 <6.0.0"
   },
   "devDependencies": {
-    "@angular/animations": "^5.0.0",
-    "@angular/cli": "1.5.4",
-    "@angular/common": "^5.0.0",
-    "@angular/compiler": "^5.0.0",
-    "@angular/compiler-cli": "^5.0.0",
-    "@angular/core": "^5.0.0",
-    "@angular/forms": "^5.0.0",
-    "@angular/http": "^5.0.0",
-    "@angular/language-service": "^5.0.0",
-    "@angular/platform-browser": "^5.0.0",
-    "@angular/platform-browser-dynamic": "^5.0.0",
-    "@angular/router": "^5.0.0",
+    "@angular/animations": "5.2.5",
+    "@angular/cli": "1.7.0",
+    "@angular/common": "5.2.5",
+    "@angular/compiler": "5.2.5",
+    "@angular/compiler-cli": "5.2.5",
+    "@angular/core": "5.2.5",
+    "@angular/forms": "5.2.5",
+    "@angular/http": "5.2.5",
+    "@angular/language-service": "5.2.5",
+    "@angular/platform-browser": "5.2.5",
+    "@angular/platform-browser-dynamic": "5.2.5",
+    "@angular/router": "5.2.5",
     "@types/jasmine": "~2.5.53",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
@@ -73,12 +72,12 @@
     "karma-spec-reporter": "0.0.31",
     "ng-packagr": "^2.0.0-rc.4",
     "protractor": "~5.1.2",
-    "rxjs": "^5.5.2",
+    "rxjs": "^5.5.6",
     "standard-version": "^4.3.0",
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
-    "typescript": "~2.4.2",
-    "zone.js": "^0.8.14"
+    "typescript": "2.6.2",
+    "zone.js": "^0.8.20"
   },
   "config": {
     "commitizen": {

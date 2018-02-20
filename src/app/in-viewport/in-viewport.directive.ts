@@ -16,7 +16,7 @@ import { Viewport } from './shared/viewport.model';
 import * as eventData from './shared/event-data';
 
 /**
- * A simple lightweight library for Angular (2+) with no
+ * A simple lightweight library for Angular with no
  * external dependencies that detects when an element is within the
  * browser viewport and adds a `in-viewport` or `not-in-viewport` class
  * to the element.

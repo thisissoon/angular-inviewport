@@ -31,7 +31,8 @@ import * as eventData from './shared/event-data';
  * ```
  */
 @Directive({
-  selector: '[snInViewport]'
+  selector: '[snInViewport]',
+  exportAs: 'snInViewport'
 })
 export class InViewportDirective implements AfterViewInit, OnDestroy {
   /**

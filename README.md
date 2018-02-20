@@ -135,6 +135,20 @@ Useful if element is within another scrollable element
 </div>
 ```
 
+### Trigger inviewport check manually
+
+Window scroll and resize events doesn't cover all potential use cases for the inViewport status check. For example if using directive inside a carousel. To trigger a check manually simply assign a template variable value to the directive and call `calculateInViewportStatus` when you require.
+
+#### `app.component.html`
+
+```html
+<p snInViewport #foo="snInViewport">
+  Amet tempor excepteur occaecat nulla.
+</p>
+
+<button (click)="foo.calculateInViewportStatus()">Check status</button>
+```
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

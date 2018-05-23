@@ -5,7 +5,7 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.4.
 
-A simple lightweight library for [Angular][angular] with no other dependencies that detects when an element is within the browser viewport and adds a `sn-viewport-in` or `sn-viewport-out` class to the element.
+A simple lightweight library for [Angular][angular] that detects when an element is within the browser viewport and adds a `sn-viewport-in` or `sn-viewport-out` class to the element.
 
 This is a simple library for [Angular][angular], implemented in the [Angular Package Format v5.0](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/edit#heading=h.k0mh3o8u5hx).
 

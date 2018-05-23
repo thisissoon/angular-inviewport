@@ -3,10 +3,7 @@ import {
   Input, Output, OnDestroy, AfterViewInit,
   ChangeDetectorRef, NgZone
 } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { merge } from 'rxjs/observable/merge';
+import { Observable, Subject, fromEvent, merge } from 'rxjs';
 import { auditTime, debounceTime, takeUntil } from 'rxjs/operators';
 
 import { WindowRef } from './window/window-ref.service';
@@ -14,10 +11,9 @@ import { Viewport } from './shared/viewport.model';
 import * as eventData from './shared/event-data';
 
 /**
- * A simple lightweight library for Angular with no
- * external dependencies that detects when an element is within the
- * browser viewport and adds a `in-viewport` or `not-in-viewport` class
- * to the element.
+ * A simple lightweight library for Angular with that detects when an
+ * element is within the browser viewport and adds a `in-viewport` or
+ * `not-in-viewport` class to the element.
  *
  * @example
  * ```html
@@ -87,8 +83,6 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
   }
   /**
    * Returns true if element is not in viewport
-   *
-   * @readonly
    *
    * @memberof InViewportDirective
    */

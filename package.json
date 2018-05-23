@@ -31,12 +31,19 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "npm run format:check && npm run lint:ts && npm run lint:scss",
     "e2e": "ng e2e",
     "coverage": "coveralls < coverage/lcov.info",
     "packagr": "ng-packagr -p package.json",
     "release": "standard-version",
-    "postrelease": "npm run packagr"
+    "postrelease": "npm run packagr",
+    "lint:ts": "ng lint",
+    "lint:ts:fix": "ng lint angular-inviewport --fix && ng lint angular-inviewport-e2e --fix",
+    "lint:scss": "stylelint --syntax scss \"src/**/*.scss\"",
+    "format:check": "prettier --config ./.prettierrc -l \"{src/{app,environments,assets}/**/*.{ts,json,css,scss},./*.{ts,js,json,css,scss}}\"",
+    "format:fix:staged": "pretty-quick --staged",
+    "format:fix:all": "npm run format:check -- --write && npm run lint:scss -- --fix && npm run lint:ts:fix",
+    "precommit": "npm run format:fix:staged && npm run lint"
   },
   "private": false,
   "peerDependencies": {
@@ -44,6 +51,7 @@
     "rxjs": ">=6.0.0 <7.0.0"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "~0.6.3",
     "@angular/animations": "6.0.3",
     "@angular/cli": "6.0.3",
     "@angular/common": "6.0.3",
@@ -56,6 +64,7 @@
     "@angular/platform-browser": "6.0.3",
     "@angular/platform-browser-dynamic": "6.0.3",
     "@angular/router": "6.0.3",
+    "@thisissoon/schematics": "^1.0.0-alpha.5",
     "@types/jasmine": "~2.5.53",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
@@ -80,7 +89,14 @@
     "tslint": "~5.7.0",
     "typescript": "2.7.2",
     "zone.js": "^0.8.26",
-    "@angular-devkit/build-angular": "~0.6.3"
+    "husky": "^0.14.3",
+    "prettier": "^1.11.1",
+    "pretty-quick": "^1.4.1",
+    "stylelint": "^9.2.0",
+    "stylelint-order": "^0.8.1",
+    "stylelint-config-recommended-scss": "^3.2.0",
+    "stylelint-config-standard": "^18.2.0",
+    "stylelint-scss": "^3.0.0"
   },
   "config": {
     "commitizen": {

@@ -3,9 +3,7 @@ import { WindowRef } from './window/window-ref.service';
 
 import { InViewportDirective } from './in-viewport.directive';
 
-const defaultProviders = [
-  WindowRef
-];
+const defaultProviders = [WindowRef];
 
 /**
  * A simple lightweight library for Angular with other dependencies
@@ -24,7 +22,9 @@ export class InViewportModule {
    *
    * @memberof InViewportModule
    */
-  public static forRoot(providers: Provider[] = defaultProviders): ModuleWithProviders {
+  public static forRoot(
+    providers: Provider[] = defaultProviders
+  ): ModuleWithProviders {
     return {
       ngModule: InViewportModule,
       providers: providers

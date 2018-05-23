@@ -1,7 +1,14 @@
 import {
-  Directive, ElementRef, HostBinding, EventEmitter,
-  Input, Output, OnDestroy, AfterViewInit,
-  ChangeDetectorRef, NgZone
+  Directive,
+  ElementRef,
+  HostBinding,
+  EventEmitter,
+  Input,
+  Output,
+  OnDestroy,
+  AfterViewInit,
+  ChangeDetectorRef,
+  NgZone
 } from '@angular/core';
 import { Observable, Subject, fromEvent, merge } from 'rxjs';
 import { auditTime, debounceTime, takeUntil } from 'rxjs/operators';
@@ -55,23 +62,20 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
    *
    * @memberof InViewportDirective
    */
-  @Output()
-  public inViewportChange = new EventEmitter<boolean>();
+  @Output() public inViewportChange = new EventEmitter<boolean>();
   /**
    * Amount of time in ms to wait for other scroll events
    * before running event handler
    *
    * @memberof InViewportDirective
    */
-  @Input()
-  public debounce = 100;
+  @Input() public debounce = 100;
   /**
    * A parent element to listen to scroll events from
    *
    * @memberof InViewportDirective
    */
-  @Input()
-  public parent: any;
+  @Input() public parent: any;
   /**
    * Returns true if element is in viewport
    *
@@ -112,7 +116,7 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
     private windowRef: WindowRef,
     private cdRef: ChangeDetectorRef,
     public ngZone: NgZone
-  ) { }
+  ) {}
   /**
    * Subscribe to `viewport$` observable which
    * will call event handler
@@ -124,10 +128,7 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
     this.cdRef.detectChanges();
 
     this.viewport$
-      .pipe(
-        debounceTime(this.debounce),
-        takeUntil(this.ngUnsubscribe$)
-      )
+      .pipe(debounceTime(this.debounce), takeUntil(this.ngUnsubscribe$))
       .subscribe(() => this.calculateInViewportStatus());
 
     // Listen for window scroll/resize events.
@@ -136,20 +137,14 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
         fromEvent(this.windowRef as any, eventData.eventWindowResize),
         fromEvent(this.windowRef as any, eventData.eventWindowScroll)
       )
-      .pipe(
-        auditTime(this.debounce),
-        takeUntil(this.ngUnsubscribe$)
-      )
-      .subscribe(() => this.onViewportChange());
+        .pipe(auditTime(this.debounce), takeUntil(this.ngUnsubscribe$))
+        .subscribe(() => this.onViewportChange());
     });
 
     if (this.parent) {
       this.ngZone.runOutsideAngular(() => {
         fromEvent(this.parent, eventData.eventScroll)
-          .pipe(
-            auditTime(this.debounce),
-            takeUntil(this.ngUnsubscribe$)
-          )
+          .pipe(auditTime(this.debounce), takeUntil(this.ngUnsubscribe$))
           .subscribe(() => this.onParentScroll());
       });
     }
@@ -192,7 +187,7 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
       inWindowViewport = this.isInElementViewport(this.viewport, el);
     }
     const oldInViewport = this.inViewport;
-    this.inViewport = (inParentViewport && inWindowViewport);
+    this.inViewport = inParentViewport && inWindowViewport;
 
     if (oldInViewport !== this.inViewport) {
       this.ngZone.run(() => this.inViewportChange.emit(this.inViewport));
@@ -209,16 +204,15 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
     if (typeof el.getBoundingClientRect === 'function') {
       const elBounds = el.getBoundingClientRect();
       return (
-        (
-          (elBounds.top >= viewport.top) && (elBounds.top <= viewport.bottom) ||
-          (elBounds.bottom >= viewport.top) && (elBounds.bottom <= viewport.bottom) ||
-          (elBounds.top <= viewport.top) && (elBounds.bottom >= viewport.bottom)
-        ) &&
-        (
-          (elBounds.left >= viewport.left) && (elBounds.left <= viewport.right) ||
-          (elBounds.right >= viewport.left) && (elBounds.right <= viewport.right) ||
-          (elBounds.left <= viewport.left && elBounds.right >= viewport.right)
-        )
+        ((elBounds.top >= viewport.top && elBounds.top <= viewport.bottom) ||
+          (elBounds.bottom >= viewport.top &&
+            elBounds.bottom <= viewport.bottom) ||
+          (elBounds.top <= viewport.top &&
+            elBounds.bottom >= viewport.bottom)) &&
+        ((elBounds.left >= viewport.left && elBounds.left <= viewport.right) ||
+          (elBounds.right >= viewport.left &&
+            elBounds.right <= viewport.right) ||
+          (elBounds.left <= viewport.left && elBounds.right >= viewport.right))
       );
     } else {
       return false;

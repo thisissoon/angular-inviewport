@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/thisissoon/angular-inviewport/compare/v2.2.0...v3.0.0) (2018-05-23)
+
+
+### Features
+
+* **inviewport:** adding support for angular 6 ([aeecd91](https://github.com/thisissoon/angular-inviewport/commit/aeecd91))
+
+
+### BREAKING CHANGES
+
+* **inviewport:** rxjs > 6 is now a peer dependency
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/thisissoon/angular-inviewport/compare/v2.1.1...v2.2.0) (2018-02-20)
 

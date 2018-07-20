@@ -23,6 +23,8 @@ export class WindowRef {
   opener = null;
   outerHeight = null;
   outerWidth = null;
+  pageXOffset = null;
+  pageYOffset = null;
   pageXOffsetleft = null;
   pageYOffsetleft = null;
   parent = null;

@@ -25,8 +25,6 @@ export class WindowRef {
   outerWidth = null;
   pageXOffset = null;
   pageYOffset = null;
-  pageXOffsetleft = null;
-  pageYOffsetleft = null;
   parent = null;
   screen = null;
   screenLeft = null;

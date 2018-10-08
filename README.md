@@ -104,6 +104,7 @@ A working example can be found [here](https://github.com/thisissoon/angular-invi
 ```html
 <p
   class="foo"
+  [ngClass]="{highlight: highlight}"
   snInViewport
   (inViewportChange)="onInViewportChange($event)">
   Amet tempor excepteur occaecat nulla.
@@ -181,6 +182,52 @@ You can pass any options [Intersection Observer][intersection-observer-api] acce
   }">
   Amet tempor excepteur occaecat nulla.
 </p>
+```
+
+### Limit example
+
+#### `app.component.html`
+
+```html
+<p
+  class="foo"
+  [ngClass]="{highlight: highlight}"
+  snInViewport
+  (inViewportChange)="onInViewportChange($event)">
+  Amet tempor excepteur occaecat nulla.
+</p>
+```
+
+#### `app.component.ts`
+
+```ts
+import { Subject } from 'rxjs';
+import { take } from 'rxjs/operators';
+
+export class AppComponent {
+  inViewportChange = new Subject;
+  highlight = false;
+
+  constructor() {
+    this.inViewportChange = new Subject<boolean>().pipe(take(5));
+
+    this.inViewportChange.subscribe((inViewport: boolean) =>
+      this.highlight = inViewport;
+    );
+  }
+
+  onInViewportChange(inViewport: boolean) {
+    this.inViewportChange.next(inViewport);
+  }
+}
+```
+
+#### `app.component.css`
+
+```css
+.highlight {
+  background-color: yellow;
+}
 ```
 
 ## Development server

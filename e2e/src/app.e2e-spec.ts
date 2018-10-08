@@ -96,4 +96,21 @@ describe('InViewport Lib E2E Tests', function() {
       'sn-viewport--out'
     );
   });
+
+  it('should apply offset to element with options', () => {
+    page.scrollTo(0, 768 * 2.4);
+    expect(page.getElementWithOptions().getAttribute('class')).toContain(
+      'sn-viewport--out'
+    );
+
+    page.scrollTo(0, 768 * 2.5);
+    expect(page.getElementWithOptions().getAttribute('class')).toContain(
+      'sn-viewport--in'
+    );
+
+    page.scrollTo(0, 768 * 3.6);
+    expect(page.getElementWithOptions().getAttribute('class')).not.toContain(
+      'sn-viewport--in'
+    );
+  });
 });

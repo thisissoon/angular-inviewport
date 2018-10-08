@@ -166,6 +166,23 @@ export class AppComponent {
 }
 ```
 
+### Offset example
+
+You can pass any options [Intersection Observer][intersection-observer-api] accepts using the `[inViewportOptions]` property. This allows offsets to be set using the `rootMargin` property. This property works the same as `margin` property in CSS.
+
+#### `app.component.html`
+
+```html
+<p
+  class="foo"
+  snInViewport
+  [inViewportOptions]="{
+    rootMargin: '100px 0px 0px 0px'
+  }">
+  Amet tempor excepteur occaecat nulla.
+</p>
+```
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.0"></a>
+# [4.0.0](https://github.com/thisissoon/angular-inviewport/compare/v3.0.1...v4.0.0) (2018-10-08)
+
+
+### Features
+
+* **InViewport:** add ability set offset using IntersectionObserver options ([#26](https://github.com/thisissoon/angular-inviewport/issues/26)) ([cacca75](https://github.com/thisissoon/angular-inviewport/commit/cacca75)), closes [#4](https://github.com/thisissoon/angular-inviewport/issues/4)
+
+
+### Performance Improvements
+
+* **InViewport:** use intersection observer to calculate inviewport state ([#25](https://github.com/thisissoon/angular-inviewport/issues/25)) ([b722d3f](https://github.com/thisissoon/angular-inviewport/commit/b722d3f))
+
+
+### BREAKING CHANGES
+
+* **InViewport:** Removed `forRoot` method in module which is no longer required for `AppBrowserModule`. Replaced with `forServer` method for `AppServerModule`. Removed debounce feature and rxjs dependancy to leave implementation up to the consumer of the library. This reduces bundle size if debounce feature is not being used. Updated inviewport classes to `sn-inviewport--in` and `sn-inviewport--out` to match SOON styleguide
+
+
+
 <a name="3.0.1"></a>
 
 ## [3.0.1](https://github.com/thisissoon/angular-inviewport/compare/v3.0.0...v3.0.1) (2018-07-20)

@@ -1,6 +1,6 @@
 # Angular InViewport
 
-[![Build Status][travis-badge]][travis-badge-url]
+[![CircleCI][circle-badge]][circle-badge-url]
 [![Coverage Status][coveralls-badge]][coveralls-badge-url]
 [![Commitizen friendly][commitizen-badge]][commitizen]
 
@@ -204,8 +204,8 @@ Run `npm run release` to create a new release. This will use [Standard Version][
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-[travis-badge]: https://travis-ci.org/thisissoon/angular-inviewport.svg?branch=master
-[travis-badge-url]: https://travis-ci.org/thisissoon/angular-inviewport
+[circle-badge]: https://circleci.com/gh/thisissoon/angular-inviewport.svg?style=shield
+[circle-badge-url]: https://circleci.com/gh/thisissoon/angular-inviewport
 [coveralls-badge]: https://coveralls.io/repos/github/thisissoon/angular-inviewport/badge.svg?branch=master
 [coveralls-badge-url]: https://coveralls.io/github/thisissoon/angular-inviewport?branch=master
 [angular]: https://angular.io/

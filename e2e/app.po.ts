@@ -6,15 +6,15 @@ export class AppPage {
   }
 
   getSmallElement() {
-    return element(by.css('.small-element'));
+    return element(by.css('.element--small'));
   }
 
   getLargeElement() {
-    return element(by.css('.large-element'));
+    return element(by.css('.element--large'));
   }
 
-  getInsideScrollableElement() {
-    return element(by.css('.inside-scrollable'));
+  getScrollableInnerElement() {
+    return element(by.css('.scrollable__inner'));
   }
 
   scrollTo(x: number = 0, y: number = 0) {
@@ -23,7 +23,9 @@ export class AppPage {
   }
 
   scrollableElementScrollTop(y: number = 0) {
-    browser.executeScript(`document.getElementsByClassName('scrollable')[0].scrollTop = ${y}`);
+    browser.executeScript(
+      `document.getElementsByClassName('scrollable')[0].scrollTop = ${y}`
+    );
     browser.sleep(200);
   }
 }

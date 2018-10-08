@@ -11,7 +11,7 @@
   background: yellow;
 }
 
-.large-element {
+.element--large {
   background: palegreen;
   min-height: 200vh;
 }
@@ -21,12 +21,12 @@
   overflow: auto;
 }
 
-.scrollable .inside-scrollable {
+.scrollable__inner {
   background-color: blueviolet;
   color: white;
-}
 
-.scrollable .inside-scrollable.sn-viewport-in {
-  background-color: yellow;
-  color: black;
+  &.sn-viewport--in {
+    background-color: yellow;
+    color: black;
+  }
 }

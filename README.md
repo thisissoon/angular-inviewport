@@ -4,23 +4,21 @@
 [![Coverage Status][coveralls-badge]][coveralls-badge-url]
 [![Commitizen friendly][commitizen-badge]][commitizen]
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.4.
+A simple lightweight library for [Angular][angular] that detects when an element is within the browser viewport and adds a `sn-viewport--in` or `sn-viewport--out` class to the element.
 
-A simple lightweight library for [Angular][angular] that detects when an element is within the browser viewport and adds a `sn-viewport-in` or `sn-viewport-out` class to the element.
-
-This is a simple library for [Angular][angular], implemented in the [Angular Package Format v5.0](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/edit#heading=h.k0mh3o8u5hx).
+This is a simple library for [Angular][angular], implemented in the [Angular Package Format v5.0][apfv5].
 
 ## Install
 
 ### via NPM
 
-```
-npm i @thisissoon/angular-inviewport --save
+```bash
+npm i @thisissoon/angular-inviewport
 ```
 
 ### via Yarn
 
-```
+```bash
 yarn add @thisissoon/angular-inviewport
 ```
 
@@ -29,33 +27,51 @@ yarn add @thisissoon/angular-inviewport
 ```ts
 import { InViewportModule } from '@thisissoon/angular-inviewport';
 
-const providers = [{ provide: WindowRef, useFactory: () => window }];
-
 @NgModule({
-  imports: [
-    // provide WindowRef class by using an window object
-    InViewportModule.forRoot(providers)
-  ]
+  imports: [InViewportModule]
 })
 export class AppModule {}
 ```
 
-`app.server.module.ts` // Only required if using Angular Universal
+`app.server.module.ts`
+Only required For Server Side Rendering
 
 ```ts
 import { InViewportModule } from '@thisissoon/angular-inviewport';
 
 @NgModule({
-  imports: [
-    // no need to pass any arguments to forRoot
-    // function for server module
-    InViewportModule.forRoot()
-  ]
+  imports: [InViewportModule.forServer()]
 })
 export class AppServerModule {}
 ```
 
+## Browser Support
+
+This library makes use of the [Intersection Observer API][intersection-observer-api] which requires a [polyfill][intersection-observer-polyfill] to work on some browsers.
+
+### Install the polyfill
+
+```bash
+npm i intersection-observer
+```
+
+Or use yarn
+
+```bash
+yarn add intersection-observer
+```
+
+### Include the polyfill
+
+Add this somewhere in your `src/polyfills.ts` file
+
+```ts
+import 'intersection-observer';
+```
+
 ## Examples
+
+A working example can be found [here](https://github.com/thisissoon/angular-inviewport/tree/master/src) folder.
 
 ### Just using classes
 
@@ -72,11 +88,11 @@ export class AppServerModule {}
   transition: transform 0.35s ease-out;
 }
 
-.foo.sn-viewport-out {
+.foo.sn-viewport--out {
   transform: translateY(-30px);
 }
 
-.foo.sn-viewport-in {
+.foo.sn-viewport--in {
   transform: translateY(0);
 }
 ```
@@ -86,7 +102,10 @@ export class AppServerModule {}
 #### `app.component.html`
 
 ```html
-<p class="foo" snInViewport (inViewportChange)="onInViewportChange($event)">
+<p
+  class="foo"
+  snInViewport
+  (inViewportChange)="onInViewportChange($event)">
   Amet tempor excepteur occaecat nulla.
 </p>
 ```
@@ -111,42 +130,40 @@ export class AppComponent {
 }
 ```
 
-### Specify debounce time (default: 100ms)
+### Debounce example
 
 #### `app.component.html`
 
 ```html
-<p class="foo" snInViewport [debounce]="500">
+<p
+  class="foo"
+  snInViewport
+  (inViewportChange)="onInViewportChange($event)">
   Amet tempor excepteur occaecat nulla.
 </p>
 ```
 
-### Specify parent scrollable element
+#### `app.component.ts`
 
-Useful if element is within another scrollable element
+```ts
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
-#### `app.component.html`
+export class AppComponent {
+  inViewportChange: Subject<boolean>;
 
-```html
-<div #container>
-  <p class="foo" snInViewport [debounce]="500" [parent]="container">
-    Amet tempor excepteur occaecat nulla.
-  </p>
-</div>
-```
+  constructor() {
+    this.inViewportChange = new Subject<boolean>().pipe(debounceTime(300));
 
-### Trigger inviewport check manually
+    this.inViewportChange.subscribe((inViewport: boolean) =>
+      console.log(`element is in viewport: ${inViewport}`)
+    );
+  }
 
-Window scroll and resize events doesn't cover all potential use cases for the inViewport status check. For example if using directive inside a carousel. To trigger a check manually simply assign a template variable value to the directive and call `calculateInViewportStatus` when you require.
-
-#### `app.component.html`
-
-```html
-<p snInViewport #foo="snInViewport">
-  Amet tempor excepteur occaecat nulla.
-</p>
-
-<button (click)="foo.calculateInViewportStatus()">Check status</button>
+  onInViewportChange(inViewport: boolean) {
+    this.inViewportChange.next(inViewport);
+  }
+}
 ```
 
 ## Development server
@@ -160,6 +177,12 @@ Run `ng generate component component-name` to generate a new component. You can 
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+
+## Server side rendering
+
+The app can be rendered on a server before serving pages to the client. Server side rendering is achieved using [Express](https://expressjs.com/) and [Angular Universal](https://github.com/angular/universal) with [Express](https://expressjs.com/) running a [node](https://nodejs.org/en/) web server and [@nguniversal/express-engine](https://github.com/angular/universal/tree/master/modules/express-engine) providing a template engine for [Express](https://expressjs.com/) to render the angular pages.
+
+Run `npm run build:ssr && npm run serve:ssr` to build client and server bundles and run an express app which will render the angular templates before being sent to the client. Navigate to `http://localhost:4000/` to view the SSR version of the app.
 
 ## Running unit tests
 
@@ -190,3 +213,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 [commitizen-badge]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg
 [conventional-changelog]: https://github.com/conventional-changelog/conventional-changelog
 [standard-version]: https://github.com/conventional-changelog/standard-version
+[apfv5]: https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/edit#heading=h.k0mh3o8u5hx
+[intersection-observer-api]: https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+[intersection-observer-polyfill]: https://github.com/w3c/IntersectionObserver/tree/master/polyfill

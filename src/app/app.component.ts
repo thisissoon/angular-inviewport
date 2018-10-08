@@ -7,6 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   highlight = false;
+  options: IntersectionObserverInit = {
+    rootMargin: '-100px 0px 50px 0px'
+  };
 
   onInViewportChange(inViewport: boolean) {
     this.highlight = inViewport;

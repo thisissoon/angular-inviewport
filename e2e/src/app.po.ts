@@ -13,6 +13,10 @@ export class AppPage {
     return element(by.css('.element--large'));
   }
 
+  getElementWithOptions() {
+    return element(by.css('.element--has-options'));
+  }
+
   getScrollableInnerElement() {
     return element(by.css('.scrollable__inner'));
   }

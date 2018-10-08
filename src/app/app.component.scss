@@ -2,6 +2,10 @@
   font-family: Roboto, sans-serif;
 }
 
+p {
+  margin: 0;
+}
+
 .spacer {
   height: 100vh;
   width: 200vw;
@@ -14,6 +18,13 @@
 .element--large {
   background: palegreen;
   min-height: 200vh;
+}
+
+.element--has-options {
+  &.sn-viewport--in {
+    background-color: pink;
+    color: black;
+  }
 }
 
 .scrollable {

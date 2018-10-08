@@ -49,6 +49,21 @@ describe('InViewportDirective', () => {
     expect(spy).toHaveBeenCalledWith(true);
   });
 
+  it('should add options to IntersectionObserver', () => {
+    const spy = jasmine.createSpy('spy').and.returnValue({
+      observe: () => null,
+      unobserve: () => null
+    });
+    WINDOW_MOCK.IntersectionObserver = spy;
+    directive.inViewportOptions = { rootMargin: '100px' };
+    directive.ngAfterViewInit();
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith(
+      jasmine.any(Function),
+      directive.inViewportOptions
+    );
+  });
+
   it('should should unobserve on destroy', () => {
     const spy = jasmine.createSpy('spy');
     directive.observer.unobserve = spy;

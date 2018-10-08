@@ -6,7 +6,8 @@ import {
   Output,
   OnDestroy,
   AfterViewInit,
-  Inject
+  Inject,
+  Input
 } from '@angular/core';
 import { WINDOW } from '../window/window-token';
 
@@ -32,6 +33,8 @@ import { WINDOW } from '../window/window-token';
 })
 export class InViewportDirective implements AfterViewInit, OnDestroy {
   private inViewport: boolean;
+  @Input()
+  inViewportOptions: IntersectionObserverInit;
   @Output()
   inViewportChange = new EventEmitter<boolean>();
   observer: IntersectionObserver;
@@ -51,7 +54,8 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     const IntersectionObserver = this.window['IntersectionObserver'];
     this.observer = new IntersectionObserver(
-      this.intersectionObserverCallback.bind(this)
+      this.intersectionObserverCallback.bind(this),
+      this.inViewportOptions
     );
 
     this.observer.observe(this.el.nativeElement);

@@ -3,25 +3,22 @@
 <div class="spacer"></div>
 
 <p
-  class="small-element"
+  class="element--small"
   snInViewport
   (inViewportChange)="onInViewportChange($event)"
   [ngClass]="{'highlight': highlight}">
   Amet tempor excepteur occaecat nulla. Aute deserunt esse duis velit mollit exercitation nisi officia. Anim do irure cillum esse esse ea magna elit. Velit reprehenderit eiusmod aliqua do reprehenderit elit commodo enim do deserunt consequat ea elit. Incididunt dolore officia consectetur anim ex ea commodo ullamco veniam ipsum esse amet cupidatat commodo. Id consequat duis aliqua minim aliquip enim officia elit. Sint est fugiat ex ex proident ad veniam do excepteur.
 </p>
 
-<p class="large-element" snInViewport>very large element</p>
+<p class="element--large" snInViewport>very large element</p>
 
-<button (click)="insideScrollable.calculateInViewportStatus()">Check</button>
-<div class="scrollable" #container>
+<div class="scrollable">
 
   <div class="spacer"></div>
 
   <p
-    #insideScrollable="snInViewport"
-    class="inside-scrollable"
-    snInViewport
-    [parent]="container">
+    class="scrollable__inner"
+    snInViewport>
     Element inside scrollable div
   </p>
 

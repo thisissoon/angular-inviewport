@@ -32,13 +32,13 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
+    browsers: ['ChromeHeadless'],
     customLaunchers: {
       ChromeNoSandbox: {
         base: 'Chrome',
         flags: ['--no-sandbox']
       }
     },
-    browsers: ['ChromeNoSandbox'],
     singleRun: false
   });
 };

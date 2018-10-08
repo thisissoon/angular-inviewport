@@ -11,7 +11,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist",
+            "outputPath": "dist/angular-inviewport",
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
@@ -68,7 +68,8 @@
             "scripts": [],
             "progress": false,
             "styles": ["src/styles.scss"],
-            "assets": ["src/assets", "src/favicon.ico"]
+            "assets": ["src/assets", "src/favicon.ico"],
+            "codeCoverageExclude": ["src/app/window/**"]
           }
         },
         "lint": {
@@ -76,6 +77,14 @@
           "options": {
             "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**"]
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/angular-inviewport-server",
+            "main": "src/main.server.ts",
+            "tsConfig": "src/tsconfig.server.json"
           }
         }
       }
@@ -111,5 +120,8 @@
     "@schematics/angular:directive": {
       "prefix": "sn"
     }
+  },
+  "cli": {
+    "packageManager": "npm"
   }
 }

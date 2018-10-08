@@ -71,7 +71,7 @@ import 'intersection-observer';
 
 ## Examples
 
-A working example can be found [here](https://github.com/thisissoon/angular-inviewport/tree/master/src) folder.
+A working example can be found [here](https://github.com/thisissoon/angular-inviewport/tree/master/src).
 
 ### Just using classes
 

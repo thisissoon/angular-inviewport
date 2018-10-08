@@ -32,23 +32,20 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "npm run format:check && npm run lint:ts && npm run lint:scss",
+    "lint": "npm run stylelint && npm run nglint && npm run prettier",
+    "lint:fix": "npm run stylelint -- --fix && npm run nglint -- --fix && npm run prettier -- --write",
+    "nglint": "ng lint",
+    "stylelint": "stylelint --syntax scss \"src/**/*.{css,scss}\"",
+    "prettier": "prettier --config .prettierrc -l \"src/**/*.{ts,js,json,css,scss}\"",
     "e2e": "ng e2e",
     "coverage": "coveralls < coverage/lcov.info",
     "packagr": "ng-packagr -p package.json",
-    "release": "standard-version",
-    "postrelease": "npm run packagr",
-    "lint:ts": "ng lint",
-    "lint:ts:fix": "ng lint angular-inviewport --fix && ng lint angular-inviewport-e2e --fix",
-    "lint:scss": "stylelint --syntax scss \"src/**/*.scss\"",
-    "format:check": "prettier --config ./.prettierrc -l \"{src/{app,environments,assets}/**/*.{ts,json,css,scss},./*.{ts,js,json,css,scss}}\"",
-    "format:fix:staged": "pretty-quick --staged",
-    "format:fix:all": "npm run format:check -- --write && npm run lint:scss -- --fix && npm run lint:ts:fix",
-    "precommit": "npm run format:fix:staged && npm run lint",
     "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
     "serve:ssr": "node dist/server.js",
     "build:client-and-server-bundles": "ng build --prod && ng run angular-inviewport:server",
-    "webpack:server": "webpack --config webpack.server.js --progress --colors"
+    "webpack:server": "webpack --config webpack.server.js --progress --colors",
+    "release": "standard-version",
+    "postrelease": "npm run packagr"
   },
   "private": false,
   "peerDependencies": {
@@ -81,7 +78,7 @@
     "coveralls": "^3.0.0",
     "cz-conventional-changelog": "^2.1.0",
     "express": "^4.16.3",
-    "husky": "^1.1.1",
+    "husky": "^1.1.0",
     "intersection-observer": "^0.5.0",
     "jasmine-core": "~3.2.1",
     "jasmine-spec-reporter": "~4.2.1",
@@ -93,22 +90,24 @@
     "karma-jasmine-html-reporter": "^1.3.1",
     "karma-spec-reporter": "0.0.32",
     "ng-packagr": "^4.2.0",
-    "prettier": "^1.11.1",
-    "pretty-quick": "^1.4.1",
+    "prettier": "^1.14.3",
     "protractor": "~5.4.1",
     "rxjs": "^6.2.0",
     "standard-version": "^4.3.0",
-    "stylelint": "^9.2.0",
+    "stylelint": "^9.6.0",
     "stylelint-config-recommended-scss": "^3.2.0",
     "stylelint-config-standard": "^18.2.0",
     "stylelint-order": "^1.0.0",
-    "stylelint-scss": "^3.0.0",
+    "stylelint-scss": "^3.3.1",
     "ts-loader": "^5.2.1",
     "ts-node": "~7.0.1",
     "tslint": "~5.11.0",
     "typescript": "^2.9.2",
     "webpack-cli": "^3.1.2",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.26",
+    "lint-staged": "^7.3.0",
+    "stylelint-config-prettier": "^4.0.0",
+    "tslint-config-prettier": "^1.15.0"
   },
   "config": {
     "commitizen": {
@@ -120,5 +119,24 @@
     "lib": {
       "entryFile": "src/index.ts"
     }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "tslint --fix",
+      "git add"
+    ],
+    "src/**/*.{css,scss}": [
+      "stylelint --syntax scss --fix",
+      "git add"
+    ],
+    "src/**/*.{ts,js,json,css,scss}": [
+      "prettier --config .prettierrc --write",
+      "git add"
+    ]
   }
 }

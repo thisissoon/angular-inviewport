@@ -1,10 +1,11 @@
 {
-  "extends": ["stylelint-config-standard", "stylelint-config-recommended-scss"],
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-recommended-scss",
+    "stylelint-config-prettier"
+  ],
   "rules": {
-    "order/order": [
-      "custom-properties",
-      "declarations"
-    ],
+    "order/order": ["custom-properties", "declarations"],
     "order/properties-alphabetical-order": true,
     "no-empty-source": null,
     "selector-type-no-unknown": [
@@ -23,7 +24,5 @@
     "at-rule-empty-line-before": null,
     "block-closing-brace-newline-after": null
   },
-  "plugins": [
-    "stylelint-order"
-  ]
+  "plugins": ["stylelint-order"]
 }

@@ -32,7 +32,8 @@ import { WINDOW } from '../window/window-token';
 })
 export class InViewportDirective implements AfterViewInit, OnDestroy {
   private inViewport: boolean;
-  @Output() inViewportChange = new EventEmitter<boolean>();
+  @Output()
+  inViewportChange = new EventEmitter<boolean>();
   observer: IntersectionObserver;
 
   @HostBinding('class.sn-viewport--in')

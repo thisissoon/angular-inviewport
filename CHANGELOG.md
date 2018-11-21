@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.1.0"></a>
+# [4.1.0](https://github.com/thisissoon/angular-inviewport/compare/v4.0.0...v4.1.0) (2018-11-21)
+
+
+### Features
+
+* **in-viewport:** add angular 7 support ([e1e9f30](https://github.com/thisissoon/angular-inviewport/commit/e1e9f30))
+
+
+
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/thisissoon/angular-inviewport/compare/v3.0.1...v4.0.0) (2018-10-08)
 

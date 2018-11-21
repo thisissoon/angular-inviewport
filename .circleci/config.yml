@@ -8,7 +8,7 @@ jobs:
   setup:
     working_directory: ~/angular-inviewport
     docker:
-      - image: circleci/node:8-browsers
+      - image: circleci/node:10-browsers
     steps:
       - checkout
       - restore_cache:
@@ -22,7 +22,7 @@ jobs:
   test:
     working_directory: ~/angular-inviewport
     docker:
-      - image: circleci/node:8-browsers
+      - image: circleci/node:10-browsers
     steps:
       - checkout
       - restore_cache:

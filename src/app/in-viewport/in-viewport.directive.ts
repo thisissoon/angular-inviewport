@@ -52,17 +52,24 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
   constructor(private el: ElementRef, @Inject(WINDOW) private window: Window) {}
 
   ngAfterViewInit() {
-    const IntersectionObserver = this.window['IntersectionObserver'];
-    this.observer = new IntersectionObserver(
-      this.intersectionObserverCallback.bind(this),
-      this.inViewportOptions
-    );
+    if (this.hasIntersectionObserver()) {
+      const IntersectionObserver = this.window['IntersectionObserver'];
+      this.observer = new IntersectionObserver(
+        this.intersectionObserverCallback.bind(this),
+        this.inViewportOptions
+      );
 
-    this.observer.observe(this.el.nativeElement);
+      this.observer.observe(this.el.nativeElement);
+    } else {
+      this.inViewport = true;
+      this.inViewportChange.emit(this.inViewport);
+    }
   }
 
   ngOnDestroy() {
-    this.observer.unobserve(this.el.nativeElement);
+    if (this.observer) {
+      this.observer.unobserve(this.el.nativeElement);
+    }
   }
 
   intersectionObserverCallback(entries: IntersectionObserverEntry[]) {
@@ -71,5 +78,37 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
       this.inViewport = entry.isIntersecting;
       this.inViewportChange.emit(this.inViewport);
     });
+  }
+
+  private hasIntersectionObserver() {
+    // Exits early if all IntersectionObserver and IntersectionObserverEntry
+    // features are natively supported.
+    if (
+      'IntersectionObserver' in this.window &&
+      'IntersectionObserverEntry' in this.window &&
+      'intersectionRatio' in
+        this.window['IntersectionObserverEntry']['prototype']
+    ) {
+      // Minimal polyfill for Edge 15's lack of `isIntersecting`
+      // See: https://github.com/w3c/IntersectionObserver/issues/211
+      if (
+        !(
+          'isIntersecting' in
+          this.window['IntersectionObserverEntry']['prototype']
+        )
+      ) {
+        Object.defineProperty(
+          this.window['IntersectionObserverEntry']['prototype'],
+          'isIntersecting',
+          {
+            get: function() {
+              return this.intersectionRatio > 0;
+            }
+          }
+        );
+      }
+      return true;
+    }
+    return false;
   }
 }

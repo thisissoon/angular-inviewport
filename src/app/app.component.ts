@@ -11,6 +11,8 @@ export class AppComponent {
     rootMargin: '-100px 0px 50px 0px'
   };
 
+  bigMockData = new Array(100);
+
   onInViewportChange(inViewport: boolean) {
     this.highlight = inViewport;
   }

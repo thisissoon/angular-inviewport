@@ -29,7 +29,6 @@ import { WINDOW } from '../window/window-token';
  */
 // @dynamic
 @Directive({
-  // tslint:disable-next-line:directive-selector
   selector: '[snInViewport]',
   exportAs: 'snInViewport'
 })
@@ -83,9 +82,7 @@ export class InViewportDirective implements AfterViewInit, OnDestroy, OnInit {
 
   intersectionObserverCallback(entries: IntersectionObserverEntry[]) {
     entries.forEach(entry => {
-      if (this.inViewport === entry.isIntersecting) {
-        return;
-      }
+      if (this.inViewport === entry.isIntersecting) return;
       this.inViewport = entry.isIntersecting;
       this.inViewportChange.emit(this.inViewport);
     });
@@ -112,7 +109,7 @@ export class InViewportDirective implements AfterViewInit, OnDestroy, OnInit {
           this.window['IntersectionObserverEntry']['prototype'],
           'isIntersecting',
           {
-            get() {
+            get: function() {
               return this.intersectionRatio > 0;
             }
           }

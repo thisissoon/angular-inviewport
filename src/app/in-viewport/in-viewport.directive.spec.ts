@@ -87,6 +87,7 @@ describe('InViewportDirective', () => {
     const spy = jasmine.createSpy('spy');
     directive.inViewportChange.emit = spy;
 
+    directive.ngOnInit();
     directive.ngAfterViewInit();
     expect(directive.observer).toBeUndefined();
     expect(spy).toHaveBeenCalledTimes(1);

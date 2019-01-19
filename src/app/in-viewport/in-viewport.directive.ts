@@ -7,7 +7,8 @@ import {
   OnDestroy,
   AfterViewInit,
   Inject,
-  Input
+  Input,
+  OnInit
 } from '@angular/core';
 import { WINDOW } from '../window/window-token';
 
@@ -28,11 +29,13 @@ import { WINDOW } from '../window/window-token';
  */
 // @dynamic
 @Directive({
+  // tslint:disable-next-line:directive-selector
   selector: '[snInViewport]',
   exportAs: 'snInViewport'
 })
-export class InViewportDirective implements AfterViewInit, OnDestroy {
+export class InViewportDirective implements AfterViewInit, OnDestroy, OnInit {
   private inViewport: boolean;
+  private hasIntersectionObserver: boolean;
   @Input()
   inViewportOptions: IntersectionObserverInit;
   @Output()
@@ -49,10 +52,19 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
     return !this.inViewport;
   }
 
-  constructor(private el: ElementRef, @Inject(WINDOW) private window: Window) {}
+  constructor(private el: ElementRef, @Inject(WINDOW) private window: Window) {
+    this.hasIntersectionObserver = this.intersectionObserverFeatureDetection();
+  }
+
+  ngOnInit() {
+    if (!this.hasIntersectionObserver) {
+      this.inViewport = true;
+      this.inViewportChange.emit(this.inViewport);
+    }
+  }
 
   ngAfterViewInit() {
-    if (this.hasIntersectionObserver()) {
+    if (this.hasIntersectionObserver) {
       const IntersectionObserver = this.window['IntersectionObserver'];
       this.observer = new IntersectionObserver(
         this.intersectionObserverCallback.bind(this),
@@ -60,9 +72,6 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
       );
 
       this.observer.observe(this.el.nativeElement);
-    } else {
-      this.inViewport = true;
-      this.inViewportChange.emit(this.inViewport);
     }
   }
 
@@ -74,13 +83,15 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
 
   intersectionObserverCallback(entries: IntersectionObserverEntry[]) {
     entries.forEach(entry => {
-      if (this.inViewport === entry.isIntersecting) return;
+      if (this.inViewport === entry.isIntersecting) {
+        return;
+      }
       this.inViewport = entry.isIntersecting;
       this.inViewportChange.emit(this.inViewport);
     });
   }
 
-  private hasIntersectionObserver() {
+  private intersectionObserverFeatureDetection() {
     // Exits early if all IntersectionObserver and IntersectionObserverEntry
     // features are natively supported.
     if (
@@ -101,7 +112,7 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
           this.window['IntersectionObserverEntry']['prototype'],
           'isIntersecting',
           {
-            get: function() {
+            get() {
               return this.intersectionRatio > 0;
             }
           }

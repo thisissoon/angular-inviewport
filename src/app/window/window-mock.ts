@@ -64,7 +64,5 @@ export const WINDOW_MOCK = {
     observe: () => null,
     unobserve: () => null
   }),
-  IntersectionObserverEntry: class IntersectionObserverEntryMock {
-    intersectionRatio() {}
-  }
+  IntersectionObserverEntry: class IntersectionObserverEntryMock {}
 };

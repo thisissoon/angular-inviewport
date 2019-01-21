@@ -93,9 +93,7 @@ export class InViewportDirective implements AfterViewInit, OnDestroy, OnInit {
     // features are natively supported.
     if (
       'IntersectionObserver' in this.window &&
-      'IntersectionObserverEntry' in this.window &&
-      'intersectionRatio' in
-        this.window['IntersectionObserverEntry']['prototype']
+      'IntersectionObserverEntry' in this.window
     ) {
       // Minimal polyfill for Edge 15's lack of `isIntersecting`
       // See: https://github.com/w3c/IntersectionObserver/issues/211

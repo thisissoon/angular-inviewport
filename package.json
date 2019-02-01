@@ -106,7 +106,7 @@
     "tslib": "^1.9.3",
     "tslint": "~5.11.0",
     "tslint-config-prettier": "^1.16.0",
-    "typescript": "^3.1.6",
+    "typescript": "~3.1.6",
     "zone.js": "^0.8.26"
   },
   "config": {

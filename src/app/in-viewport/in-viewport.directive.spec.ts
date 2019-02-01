@@ -1,6 +1,9 @@
 import { ElementRef } from '@angular/core';
 import { InViewportDirective } from './in-viewport.directive';
-import { WINDOW_MOCK } from '../window/window-mock';
+import {
+  WINDOW_MOCK,
+  WINDOW_MOCK_WITHOUT_INTERSECTION_OBSERVER
+} from '../window/window-mock';
 
 describe('InViewportDirective', () => {
   let node: HTMLElement;
@@ -70,5 +73,24 @@ describe('InViewportDirective', () => {
     directive.ngOnDestroy();
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith(node);
+  });
+
+  it('should set in viewport immediately if no intersection observer is supported', () => {
+    node = document.createElement('p');
+    node.innerText = text;
+    el = new ElementRef(node);
+
+    directive = new InViewportDirective(
+      el,
+      WINDOW_MOCK_WITHOUT_INTERSECTION_OBSERVER as any
+    );
+    const spy = jasmine.createSpy('spy');
+    directive.inViewportChange.emit = spy;
+
+    directive.ngOnInit();
+    directive.ngAfterViewInit();
+    expect(directive.observer).toBeUndefined();
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith(true);
   });
 });

@@ -7,7 +7,8 @@ import {
   OnDestroy,
   AfterViewInit,
   Inject,
-  Input
+  Input,
+  OnInit
 } from '@angular/core';
 import { WINDOW } from '../window/window-token';
 
@@ -31,8 +32,9 @@ import { WINDOW } from '../window/window-token';
   selector: '[snInViewport]',
   exportAs: 'snInViewport'
 })
-export class InViewportDirective implements AfterViewInit, OnDestroy {
+export class InViewportDirective implements AfterViewInit, OnDestroy, OnInit {
   private inViewport: boolean;
+  private hasIntersectionObserver: boolean;
   @Input()
   inViewportOptions: IntersectionObserverInit;
   @Output()
@@ -49,20 +51,33 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
     return !this.inViewport;
   }
 
-  constructor(private el: ElementRef, @Inject(WINDOW) private window: Window) {}
+  constructor(private el: ElementRef, @Inject(WINDOW) private window: Window) {
+    this.hasIntersectionObserver = this.intersectionObserverFeatureDetection();
+  }
+
+  ngOnInit() {
+    if (!this.hasIntersectionObserver) {
+      this.inViewport = true;
+      this.inViewportChange.emit(this.inViewport);
+    }
+  }
 
   ngAfterViewInit() {
-    const IntersectionObserver = this.window['IntersectionObserver'];
-    this.observer = new IntersectionObserver(
-      this.intersectionObserverCallback.bind(this),
-      this.inViewportOptions
-    );
+    if (this.hasIntersectionObserver) {
+      const IntersectionObserver = this.window['IntersectionObserver'];
+      this.observer = new IntersectionObserver(
+        this.intersectionObserverCallback.bind(this),
+        this.inViewportOptions
+      );
 
-    this.observer.observe(this.el.nativeElement);
+      this.observer.observe(this.el.nativeElement);
+    }
   }
 
   ngOnDestroy() {
-    this.observer.unobserve(this.el.nativeElement);
+    if (this.observer) {
+      this.observer.unobserve(this.el.nativeElement);
+    }
   }
 
   intersectionObserverCallback(entries: IntersectionObserverEntry[]) {
@@ -71,5 +86,35 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
       this.inViewport = entry.isIntersecting;
       this.inViewportChange.emit(this.inViewport);
     });
+  }
+
+  private intersectionObserverFeatureDetection() {
+    // Exits early if all IntersectionObserver and IntersectionObserverEntry
+    // features are natively supported.
+    if (
+      'IntersectionObserver' in this.window &&
+      'IntersectionObserverEntry' in this.window
+    ) {
+      // Minimal polyfill for Edge 15's lack of `isIntersecting`
+      // See: https://github.com/w3c/IntersectionObserver/issues/211
+      if (
+        !(
+          'isIntersecting' in
+          this.window['IntersectionObserverEntry']['prototype']
+        )
+      ) {
+        Object.defineProperty(
+          this.window['IntersectionObserverEntry']['prototype'],
+          'isIntersecting',
+          {
+            get: function() {
+              return this.intersectionRatio > 0;
+            }
+          }
+        );
+      }
+      return true;
+    }
+    return false;
   }
 }

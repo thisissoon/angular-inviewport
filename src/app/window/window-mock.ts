@@ -1,4 +1,4 @@
-export const WINDOW_MOCK = {
+export const WINDOW_MOCK_WITHOUT_INTERSECTION_OBSERVER = {
   closed: null,
   defaultStatus: null,
   document: null,
@@ -41,10 +41,6 @@ export const WINDOW_MOCK = {
   focus: (...args) => null,
   getComputedStyle: (...args) => null,
   getSelection: (...args) => null,
-  IntersectionObserver: (...args) => ({
-    observe: () => null,
-    unobserve: () => null
-  }),
   matchMedia: (...args) => null,
   moveBy: (...args) => null,
   moveTo: (...args) => null,
@@ -60,4 +56,13 @@ export const WINDOW_MOCK = {
   setInterval: (...args) => null,
   setTimeout: (...args) => null,
   stop: (...args) => null
+};
+
+export const WINDOW_MOCK = {
+  ...WINDOW_MOCK_WITHOUT_INTERSECTION_OBSERVER,
+  IntersectionObserver: (...args) => ({
+    observe: () => null,
+    unobserve: () => null
+  }),
+  IntersectionObserverEntry: class IntersectionObserverEntryMock {}
 };

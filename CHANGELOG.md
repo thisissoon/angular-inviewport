@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.2.0"></a>
+# [4.2.0](https://github.com/thisissoon/angular-inviewport/compare/v4.1.0...v4.2.0) (2019-02-01)
+
+
+### Features
+
+* **in-viewport:** integrate feature detection for intersection observer ([4fc1a21](https://github.com/thisissoon/angular-inviewport/commit/4fc1a21)), closes [#31](https://github.com/thisissoon/angular-inviewport/issues/31)
+
+
+
 <a name="4.1.0"></a>
 # [4.1.0](https://github.com/thisissoon/angular-inviewport/compare/v4.0.0...v4.1.0) (2018-11-21)
 

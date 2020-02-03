@@ -60,9 +60,9 @@ export const WINDOW_MOCK_WITHOUT_INTERSECTION_OBSERVER = {
 
 export const WINDOW_MOCK = {
   ...WINDOW_MOCK_WITHOUT_INTERSECTION_OBSERVER,
-  IntersectionObserver: (...args) => ({
-    observe: () => null,
-    unobserve: () => null
-  }),
+  IntersectionObserver: function(...args) {
+    this.observe = () => null;
+    this.unobserve = () => null;
+  },
   IntersectionObserverEntry: class IntersectionObserverEntryMock {}
 };

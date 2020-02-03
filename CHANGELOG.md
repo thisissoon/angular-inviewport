@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.2.1"></a>
+## [4.2.1](https://github.com/thisissoon/angular-inviewport/compare/v4.2.0...v4.2.1) (2020-02-03)
+
+
+### Bug Fixes
+
+* **window-mock:** replace intersection observer arrow functino with regular function to allow for use as a constructor. ([287fe3c](https://github.com/thisissoon/angular-inviewport/commit/287fe3c))
+
+
+
 <a name="4.2.0"></a>
 # [4.2.0](https://github.com/thisissoon/angular-inviewport/compare/v4.1.0...v4.2.0) (2019-02-01)
 

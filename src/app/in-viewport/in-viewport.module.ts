@@ -14,7 +14,7 @@ import { WINDOW_MOCK } from '../window/window-mock';
   exports: [InViewportDirective]
 })
 export class InViewportModule {
-  static forServer(): ModuleWithProviders {
+  static forServer(): ModuleWithProviders<InViewportModule> {
     return {
       ngModule: InViewportModule,
       providers: [{ provide: WINDOW, useValue: WINDOW_MOCK }]

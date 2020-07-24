@@ -61,7 +61,6 @@
     "@angular/platform-browser-dynamic": "10.0.5",
     "@angular/platform-server": "10.0.5",
     "@nguniversal/express-engine": "^10.0.1",
-    "@nguniversal/module-map-ngfactory-loader": "^8.2.6",
     "@thisissoon/schematics": "^1.0.0-alpha.17",
     "@types/jasmine": "^3.5.11",
     "@types/jasminewd2": "~2.0.2",

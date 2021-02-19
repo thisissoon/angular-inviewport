@@ -134,5 +134,9 @@
       "prettier --config .prettierrc --write",
       "git add"
     ]
+  },
+  "dependencies": {
+    "tslib": "^2.0.0",
+    "yarn": "^1.22.10"
   }
 }

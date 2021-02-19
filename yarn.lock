@@ -1398,19 +1398,20 @@
     enhanced-resolve "5.7.0"
     webpack-sources "2.2.0"
 
-"@nguniversal/common@10.0.1":
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/@nguniversal/common/-/common-10.0.1.tgz#964b8cc7745db8f6c3c9f39bbaee401c6354fa4b"
-  integrity sha512-don1zW+ZOBQS1PTLg006L+Uqwk9fIVnq595196XpVFn/7x5h5vCQRElZsu9LdzwFPu5b1Mjz1/3X/D4Q4SFewg==
+"@nguniversal/common@11.2.0":
+  version "11.2.0"
+  resolved "https://registry.yarnpkg.com/@nguniversal/common/-/common-11.2.0.tgz#9b2406746818f9ab0c08718d142a35041af763ab"
+  integrity sha512-AStKUerA7Y5R2wIXzv7/G/Vd0427HuIOYkaSCMlVkKIU78ZUs2jS2qhIb09O7WP+47hPgBxFmbf1SkEtUkLfAg==
   dependencies:
+    critters "0.0.7"
     tslib "^2.0.0"
 
-"@nguniversal/express-engine@^10.0.1":
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/@nguniversal/express-engine/-/express-engine-10.0.1.tgz#ed2a37a382598b1f798470c2ed96b9f48d354806"
-  integrity sha512-Ie4q6WTMTV6iMaEofG1UO8xagCPUNTfIgAwuR+dcPCc5c8MYOKRi6EQ2X9fltUv0X92PFjI4dxi/DPa6f6AIeg==
+"@nguniversal/express-engine@^11.2.0":
+  version "11.2.0"
+  resolved "https://registry.yarnpkg.com/@nguniversal/express-engine/-/express-engine-11.2.0.tgz#93d65569074d27e67e75bc212151ea79a21db198"
+  integrity sha512-cCV9nW/hPyG39qpZetwTB908hXiKYhBEjrb+GiXMyzCeya5IGWK1Ql29BSRH1/5+gVujLdeQt4wqytnkO7wJMg==
   dependencies:
-    "@nguniversal/common" "10.0.1"
+    "@nguniversal/common" "11.2.0"
     tslib "^2.0.0"
 
 "@nodelib/fs.scandir@2.1.3":

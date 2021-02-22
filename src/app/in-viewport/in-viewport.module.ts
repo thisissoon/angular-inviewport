@@ -11,13 +11,13 @@ import { WINDOW_MOCK } from '../window/window-mock';
  */
 @NgModule({
   declarations: [InViewportDirective],
-  exports: [InViewportDirective]
+  exports: [InViewportDirective],
 })
 export class InViewportModule {
   static forServer(): ModuleWithProviders {
     return {
       ngModule: InViewportModule,
-      providers: [{ provide: WINDOW, useValue: WINDOW_MOCK }]
+      providers: [{ provide: WINDOW, useValue: WINDOW_MOCK }],
     };
   }
 }

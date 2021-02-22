@@ -2,7 +2,7 @@ import { ElementRef } from '@angular/core';
 import { InViewportDirective } from './in-viewport.directive';
 import {
   WINDOW_MOCK,
-  WINDOW_MOCK_WITHOUT_INTERSECTION_OBSERVER
+  WINDOW_MOCK_WITHOUT_INTERSECTION_OBSERVER,
 } from '../window/window-mock';
 
 describe('InViewportDirective', () => {
@@ -55,7 +55,7 @@ describe('InViewportDirective', () => {
   it('should add options to IntersectionObserver', () => {
     const spy = jasmine.createSpy('spy').and.returnValue({
       observe: () => null,
-      unobserve: () => null
+      unobserve: () => null,
     });
     WINDOW_MOCK.IntersectionObserver = spy;
     directive.inViewportOptions = { rootMargin: '100px' };

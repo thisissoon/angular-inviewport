@@ -55,14 +55,14 @@ export const WINDOW_MOCK_WITHOUT_INTERSECTION_OBSERVER = {
   scrollTo: (...args) => null,
   setInterval: (...args) => null,
   setTimeout: (...args) => null,
-  stop: (...args) => null
+  stop: (...args) => null,
 };
 
 export const WINDOW_MOCK = {
   ...WINDOW_MOCK_WITHOUT_INTERSECTION_OBSERVER,
-  IntersectionObserver: function(...args) {
+  IntersectionObserver: function (...args) {
     this.observe = () => null;
     this.unobserve = () => null;
   },
-  IntersectionObserverEntry: class IntersectionObserverEntryMock {}
+  IntersectionObserverEntry: class IntersectionObserverEntryMock {},
 };

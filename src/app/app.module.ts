@@ -8,8 +8,8 @@ import { InViewportModule } from './in-viewport';
   declarations: [AppComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    InViewportModule
+    InViewportModule,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

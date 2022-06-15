@@ -1,6 +1,23 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [5.0.1](https://github.com/thisissoon/angular-inviewport/compare/v5.0.0...v5.0.1) (2022-06-15)
+
+## [5.0.0](https://github.com/thisissoon/angular-inviewport/compare/v4.2.2...v5.0.0) (2022-06-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* requires Angular v10
+
+### Bug Fixes
+
+* **@nguniversal/module-map-ngfactory-loader:** remove module-map-ngfactory-loader (deprecated) ([30e6a57](https://github.com/thisissoon/angular-inviewport/commit/30e6a570bf8858f10fa2cc0c711f1e94487ebfa9))
+* **package.json:** update package versions to go along with Angular v10 upgrade ([ea3b739](https://github.com/thisissoon/angular-inviewport/commit/ea3b739fbd327579c942511ae6f71a108e83a412)), closes [#41](https://github.com/thisissoon/angular-inviewport/issues/41)
+* **polyfills,lock file:** update polyfills to use proper references; rebuild lock file ([ef09fe0](https://github.com/thisissoon/angular-inviewport/commit/ef09fe0490d9247022ef9e379daa0a6d7e860934)), closes [#41](https://github.com/thisissoon/angular-inviewport/issues/41)
+* update packages for audit issues ([2e8e7f5](https://github.com/thisissoon/angular-inviewport/commit/2e8e7f5e1d580cc0555e613289c838c3e6a9fbf0)), closes [#41](https://github.com/thisissoon/angular-inviewport/issues/41)
+* Upgrade to Angular v10 ([3e5b1ca](https://github.com/thisissoon/angular-inviewport/commit/3e5b1ca233d0d55d5865125c6ce6ac8afafae679))
 
 <a name="4.2.2"></a>
 ## [4.2.2](https://github.com/thisissoon/angular-inviewport/compare/v4.2.1...v4.2.2) (2020-02-03)

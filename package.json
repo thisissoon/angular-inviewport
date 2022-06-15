@@ -1,6 +1,6 @@
 {
-  "name": "@thisissoon/angular-inviewport",
-  "version": "4.2.2",
+  "name": "@elvirus/angular-inviewport",
+  "version": "5.0.2",
   "description": "A simple lightweight library for Angular that detects when an element is within the browser viewport and adds a sn-viewport--in or sn-viewport--out class to the element.",
   "keywords": [
     "angular",
@@ -42,7 +42,7 @@
     "packagr": "ng-packagr -p package.json",
     "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
     "serve:ssr": "node dist/server.js",
-    "build:client-and-server-bundles": "ng build --prod && ng run angular-inviewport:server",
+    "build:client-and-server-bundles": "ng build --configuration production && ng run angular-inviewport:server",
     "webpack:server": "webpack --config webpack.server.js --progress --colors",
     "release": "standard-version",
     "postrelease": "npm run packagr"
@@ -50,19 +50,19 @@
   "private": false,
   "peerDependencies": {},
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1000.4",
-    "@angular/animations": "10.0.5",
-    "@angular/cli": "10.0.4",
-    "@angular/common": "10.0.5",
-    "@angular/compiler": "10.0.5",
-    "@angular/compiler-cli": "10.0.5",
-    "@angular/core": "10.0.5",
-    "@angular/platform-browser": "10.0.5",
-    "@angular/platform-browser-dynamic": "10.0.5",
-    "@angular/platform-server": "10.0.5",
-    "@nguniversal/express-engine": "^10.0.1",
+    "@angular-devkit/build-angular": "^14.0.1",
+    "@angular/animations": "14.0.1",
+    "@angular/cli": "14.0.1",
+    "@angular/common": "14.0.1",
+    "@angular/compiler": "14.0.1",
+    "@angular/compiler-cli": "14.0.1",
+    "@angular/core": "14.0.1",
+    "@angular/platform-browser": "14.0.1",
+    "@angular/platform-browser-dynamic": "14.0.1",
+    "@angular/platform-server": "14.0.1",
+    "@nguniversal/express-engine": "^14.0.0",
     "@thisissoon/schematics": "^1.0.0-alpha.17",
-    "@types/jasmine": "^3.5.11",
+    "@types/jasmine": "~3.8.0",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "^14.0.25",
     "codelyzer": "^6.0.0",
@@ -72,17 +72,17 @@
     "express": "^4.16.3",
     "husky": "^4.2.5",
     "intersection-observer": "^0.11.0",
-    "jasmine-core": "^3.6.0",
+    "jasmine-core": "~3.8.0",
     "jasmine-spec-reporter": "~5.0.0",
-    "karma": "~5.1.0",
+    "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-cli": "^2.0.0",
     "karma-coverage-istanbul-reporter": "~3.0.2",
-    "karma-jasmine": "~3.3.0",
+    "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "karma-mocha-reporter": "^2.2.5",
     "lint-staged": "^10.2.11",
-    "ng-packagr": "^10.0.0",
+    "ng-packagr": "^14.0.2",
     "prettier": "^2.0.5",
     "protractor": "^7.0.0",
     "rxjs": "^6.6.0",
@@ -97,18 +97,12 @@
     "ts-node": "^8.10.2",
     "tslint": "~6.1.0",
     "tslint-config-prettier": "^1.16.0",
-    "typescript": "~3.9.7",
-    "zone.js": "~0.10.3"
+    "typescript": "~4.6.4",
+    "zone.js": "~0.11.4"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
-  "ngPackage": {
-    "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
-    "lib": {
-      "entryFile": "src/index.ts"
     }
   },
   "husky": {

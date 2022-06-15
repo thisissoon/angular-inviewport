@@ -131,7 +131,6 @@
       }
     }
   },
-  "defaultProject": "angular-inviewport",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "sn",

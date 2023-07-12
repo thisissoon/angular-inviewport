@@ -1,6 +1,6 @@
 {
   "name": "@kumanu/angular-inviewport",
-  "version": "5.0.1-alpha",
+  "version": "5.0.2-alpha",
   "description": "A simple lightweight library for Angular that detects when an element is within the browser viewport and adds a sn-viewport--in or sn-viewport--out class to the element.",
   "keywords": [
     "angular",
@@ -16,15 +16,16 @@
   "contributors": [
     "Ed Opare-Aryee <ed@thisissoon.com>",
     "Jack matthews <jack@thisissoon.com>",
-    "Sergey Krilov <serg.kr@gmail.com>"
+    "Sergey Krilov <serg.kr@gmail.com>",
+    "Mike Behnke <mike@local-pc-guy.com>"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/thisissoon/angular-inviewport"
+    "url": "https://github.com/kumanu/angular-inviewport"
   },
   "engines": {
-    "node": ">= 8.9.0",
+    "node": ">= 14.15.0",
     "npm": ">= 5.6.0"
   },
   "scripts": {
@@ -50,22 +51,22 @@
   "private": false,
   "peerDependencies": {},
   "devDependencies": {
-    "@angular-devkit/build-angular": "~13.3.11",
-    "@angular/animations": "13.4.0",
-    "@angular/cli": "13.3.11",
-    "@angular/common": "13.4.0",
-    "@angular/compiler": "13.4.0",
-    "@angular/compiler-cli": "13.4.0",
-    "@angular/core": "13.4.0",
-    "@angular/platform-browser": "13.4.0",
-    "@angular/platform-browser-dynamic": "13.4.0",
-    "@angular/platform-server": "13.4.0",
-    "@nguniversal/express-engine": "^11.2.0",
-    "@thisissoon/schematics": "^1.0.0-alpha.17",
+    "@angular-devkit/build-angular": "^14.2.12",
+    "@angular/animations": "14.3.0",
+    "@angular/cli": "14.2.12",
+    "@angular/common": "14.3.0",
+    "@angular/compiler": "14.3.0",
+    "@angular/compiler-cli": "14.3.0",
+    "@angular/core": "14.3.0",
+    "@angular/platform-browser": "14.3.0",
+    "@angular/platform-browser-dynamic": "14.3.0",
+    "@angular/platform-server": "14.3.0",
+    "@nguniversal/express-engine": "^14.2.3",
+    "@thisissoon/schematics": "^1.0.0-alpha.18",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "^14.0.25",
-    "codelyzer": "^6.0.0",
+    "codelyzer": "^6.0.2",
     "core-js": "^3.6.5",
     "coveralls": "^3.1.0",
     "cz-conventional-changelog": "^3.2.0",
@@ -82,7 +83,7 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "karma-mocha-reporter": "^2.2.5",
     "lint-staged": "^10.2.11",
-    "ng-packagr": "^13.3.1",
+    "ng-packagr": "^14.2.2",
     "prettier": "^2.0.5",
     "protractor": "^7.0.0",
     "rxjs": "^6.6.3",

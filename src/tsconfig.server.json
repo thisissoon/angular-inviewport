@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "../out-tsc/app-server",
     "baseUrl": ".",
-    "target": "es2016"
+    "target": "es2020"
   },
   "angularCompilerOptions": {
     "entryModule": "app/app.server.module#AppServerModule"

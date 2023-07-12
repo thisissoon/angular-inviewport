@@ -11,7 +11,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "aot": true,
             "outputPath": "dist/angular-inviewport",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -20,7 +19,13 @@
             "assets": ["src/assets", "src/favicon.ico"],
             "styles": ["src/styles.scss"],
             "scripts": [],
-            "progress": false
+            "progress": false,
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -34,7 +39,6 @@
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -54,7 +58,8 @@
               ],
               "progress": false
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -110,8 +115,11 @@
           "options": {
             "outputPath": "dist/angular-inviewport-server",
             "main": "src/main.server.ts",
-            "tsConfig": "src/tsconfig.server.json"
-          }
+            "tsConfig": "src/tsconfig.server.json",
+            "sourceMap": true,
+            "optimization": false
+          },
+          "defaultConfiguration": ""
         }
       }
     },

@@ -1,6 +1,6 @@
 {
-  "name": "@thisissoon/angular-inviewport",
-  "version": "4.2.2",
+  "name": "@kumanu/angular-inviewport",
+  "version": "5.0.0-alpha",
   "description": "A simple lightweight library for Angular that detects when an element is within the browser viewport and adds a sn-viewport--in or sn-viewport--out class to the element.",
   "keywords": [
     "angular",
@@ -42,7 +42,7 @@
     "packagr": "ng-packagr -p package.json",
     "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
     "serve:ssr": "node dist/server.js",
-    "build:client-and-server-bundles": "ng build --prod && ng run angular-inviewport:server",
+    "build:client-and-server-bundles": "ng build --configuration production && ng run angular-inviewport:server",
     "webpack:server": "webpack --config webpack.server.js --progress --colors",
     "release": "standard-version",
     "postrelease": "npm run packagr"
@@ -50,16 +50,16 @@
   "private": false,
   "peerDependencies": {},
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1102.1",
-    "@angular/animations": "11.2.1",
-    "@angular/cli": "11.2.1",
-    "@angular/common": "11.2.1",
-    "@angular/compiler": "11.2.1",
-    "@angular/compiler-cli": "11.2.1",
-    "@angular/core": "11.2.1",
-    "@angular/platform-browser": "11.2.1",
-    "@angular/platform-browser-dynamic": "11.2.1",
-    "@angular/platform-server": "11.2.1",
+    "@angular-devkit/build-angular": "~12.2.18",
+    "@angular/animations": "12.2.17",
+    "@angular/cli": "12.2.18",
+    "@angular/common": "12.2.17",
+    "@angular/compiler": "12.2.17",
+    "@angular/compiler-cli": "12.2.17",
+    "@angular/core": "12.2.17",
+    "@angular/platform-browser": "12.2.17",
+    "@angular/platform-browser-dynamic": "12.2.17",
+    "@angular/platform-server": "12.2.17",
     "@nguniversal/express-engine": "^11.2.0",
     "@thisissoon/schematics": "^1.0.0-alpha.17",
     "@types/jasmine": "~3.6.0",
@@ -74,7 +74,7 @@
     "intersection-observer": "^0.11.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
-    "karma": "~6.1.1",
+    "karma": "~6.4.2",
     "karma-chrome-launcher": "~3.1.0",
     "karma-cli": "^2.0.0",
     "karma-coverage-istanbul-reporter": "~3.0.2",
@@ -82,7 +82,7 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "karma-mocha-reporter": "^2.2.5",
     "lint-staged": "^10.2.11",
-    "ng-packagr": "^11.2.2",
+    "ng-packagr": "^12.2.7",
     "prettier": "^2.0.5",
     "protractor": "^7.0.0",
     "rxjs": "^6.6.3",
@@ -97,8 +97,8 @@
     "ts-node": "^8.10.2",
     "tslint": "~6.1.0",
     "tslint-config-prettier": "^1.16.0",
-    "typescript": "~4.1.5",
-    "zone.js": "~0.10.3"
+    "typescript": "~4.3.5",
+    "zone.js": "~0.11.4"
   },
   "config": {
     "commitizen": {

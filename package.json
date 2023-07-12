@@ -51,17 +51,17 @@
   "private": false,
   "peerDependencies": {},
   "devDependencies": {
-    "@angular-devkit/build-angular": "^15.2.9",
-    "@angular/animations": "15.2.9",
-    "@angular/cli": "15.2.9",
-    "@angular/common": "15.2.9",
-    "@angular/compiler": "15.2.9",
-    "@angular/compiler-cli": "15.2.9",
-    "@angular/core": "15.2.9",
-    "@angular/platform-browser": "15.2.9",
-    "@angular/platform-browser-dynamic": "15.2.9",
-    "@angular/platform-server": "15.2.9",
-    "@nguniversal/express-engine": "^15.2.1",
+    "@angular-devkit/build-angular": "^16.1.4",
+    "@angular/animations": "16.1.4",
+    "@angular/cli": "16.1.4",
+    "@angular/common": "16.1.4",
+    "@angular/compiler": "16.1.4",
+    "@angular/compiler-cli": "16.1.4",
+    "@angular/core": "16.1.4",
+    "@angular/platform-browser": "16.1.4",
+    "@angular/platform-browser-dynamic": "16.1.4",
+    "@angular/platform-server": "16.1.4",
+    "@nguniversal/express-engine": "^16.1.1",
     "@thisissoon/schematics": "^1.0.0-alpha.18",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.2",
@@ -83,7 +83,7 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "karma-mocha-reporter": "^2.2.5",
     "lint-staged": "^10.2.11",
-    "ng-packagr": "^15.2.2",
+    "ng-packagr": "^16.1.0",
     "prettier": "^2.0.5",
     "protractor": "^7.0.0",
     "rxjs": "^6.6.3",
@@ -99,7 +99,7 @@
     "tslint": "~6.1.0",
     "tslint-config-prettier": "^1.16.0",
     "typescript": "~4.9.5",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.13.1"
   },
   "config": {
     "commitizen": {
@@ -119,16 +119,13 @@
   },
   "lint-staged": {
     "src/**/*.ts": [
-      "tslint --fix",
-      "git add"
+      "tslint --fix"
     ],
     "src/**/*.{css,scss}": [
-      "stylelint --syntax scss --fix",
-      "git add"
+      "stylelint --syntax scss --fix"
     ],
     "src/**/*.{ts,js,json,css,scss}": [
-      "prettier --config .prettierrc --write",
-      "git add"
+      "prettier --config .prettierrc --write"
     ]
   },
   "dependencies": {

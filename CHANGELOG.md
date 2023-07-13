@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [16.0.1](https://github.com/kumanu/angular-inviewport/compare/v16.0.0...v16.0.1) (2023-07-13)
+
 <a name="16.0.0"></a>
 ## [16.0.0](https://github.com/kumanu/angular-inviewport/compare/v4.2.2...v16.0.0) (2023-07-13)
 

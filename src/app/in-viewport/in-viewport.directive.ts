@@ -1,14 +1,14 @@
 import {
+  AfterViewInit,
   Directive,
   ElementRef,
-  HostBinding,
   EventEmitter,
-  Output,
-  OnDestroy,
-  AfterViewInit,
+  HostBinding,
   Inject,
   Input,
+  OnDestroy,
   OnInit,
+  Output,
 } from '@angular/core';
 import { WINDOW } from '../window/window-token';
 
@@ -34,7 +34,7 @@ import { WINDOW } from '../window/window-token';
 })
 export class InViewportDirective implements AfterViewInit, OnDestroy, OnInit {
   private inViewport: boolean;
-  private hasIntersectionObserver: boolean;
+  private readonly hasIntersectionObserver: boolean;
   @Input()
   inViewportOptions: IntersectionObserverInit;
   @Output()
@@ -51,7 +51,10 @@ export class InViewportDirective implements AfterViewInit, OnDestroy, OnInit {
     return !this.inViewport;
   }
 
-  constructor(private el: ElementRef, @Inject(WINDOW) private window: Window) {
+  constructor(
+    private el: ElementRef,
+    @Inject(WINDOW) private window: Window,
+  ) {
     this.hasIntersectionObserver = this.intersectionObserverFeatureDetection();
   }
 
@@ -67,7 +70,7 @@ export class InViewportDirective implements AfterViewInit, OnDestroy, OnInit {
       const IntersectionObserver = this.window['IntersectionObserver'];
       this.observer = new IntersectionObserver(
         this.intersectionObserverCallback.bind(this),
-        this.inViewportOptions
+        this.inViewportOptions,
       );
 
       this.observer.observe(this.el.nativeElement);
@@ -110,7 +113,7 @@ export class InViewportDirective implements AfterViewInit, OnDestroy, OnInit {
             get: function () {
               return this.intersectionRatio > 0;
             },
-          }
+          },
         );
       }
       return true;

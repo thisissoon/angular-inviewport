@@ -47,9 +47,9 @@ export class AppServerModule {}
 
 ## Browser Support
 
-This library makes use of the [Intersection Observer API][intersection-observer-api] which requires a [polyfill][intersection-observer-polyfill] to work on some browsers.
+This library makes use of the [Intersection Observer API][intersection-observer-api] which may require a [polyfill][intersection-observer-polyfill] to work on some browsers.
 
-### Install the polyfill
+### Install the polyfill (if needed)
 
 ```bash
 npm i intersection-observer
@@ -61,7 +61,7 @@ Or use yarn
 yarn add intersection-observer
 ```
 
-### Include the polyfill
+### Include the polyfill (if needed)
 
 Add this somewhere in your `src/polyfills.ts` file
 
@@ -143,7 +143,7 @@ export class AppComponent {
   Amet tempor excepteur occaecat nulla.
 </p>
 ```
-
+po
 #### `app.component.ts`
 
 ```ts
@@ -211,9 +211,9 @@ export class AppComponent {
   constructor() {
     this.inViewportChange = new Subject<boolean>().pipe(take(5));
 
-    this.inViewportChange.subscribe((inViewport: boolean) =>
+    this.inViewportChange.subscribe((inViewport: boolean) => {
       this.highlight = inViewport;
-    );
+    });
   }
 
   onInViewportChange(inViewport: boolean) {

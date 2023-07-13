@@ -2,16 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [16.0.0](https://github.com/kumanu/angular-inviewport/compare/v17.0.0...v16.0.0) (2023-07-13)
-
-## [17.0.0](https://github.com/kumanu/angular-inviewport/compare/v4.2.2...v17.0.0) (2023-07-13)
-
+<a name="16.0.0"></a>
+## [16.0.0](https://github.com/kumanu/angular-inviewport/compare/v4.2.2...v16.0.0) (2023-07-13)
 
 ### ⚠ BREAKING CHANGES
 
-* Husky
-* Angular v12 no longer supports Internet Explorer/IE.
-* requires Angular v10
+* Husky updated to v8
+* Angular v12+ no longer supports Internet Explorer/IE.
+* requires Angular v14; supports Angular v16
 
 ### Bug Fixes
 
@@ -20,11 +18,16 @@ All notable changes to this project will be documented in this file. See [standa
 * **polyfills,lock file:** update polyfills to use proper references; rebuild lock file ([ef09fe0](https://github.com/kumanu/angular-inviewport/commit/ef09fe0490d9247022ef9e379daa0a6d7e860934)), closes [#41](https://github.com/kumanu/angular-inviewport/issues/41)
 * update packages for audit issues ([2e8e7f5](https://github.com/kumanu/angular-inviewport/commit/2e8e7f5e1d580cc0555e613289c838c3e6a9fbf0)), closes [#41](https://github.com/kumanu/angular-inviewport/issues/41)
 * updates peer dependencies to remove warning. ([d36d762](https://github.com/kumanu/angular-inviewport/commit/d36d762ec70841fa871e2e7c9313a4adb0ffd100))
+
+### Angular upgrades
 * Upgrade to Angular v10 ([3e5b1ca](https://github.com/kumanu/angular-inviewport/commit/3e5b1ca233d0d55d5865125c6ce6ac8afafae679))
-
-
-* update packages to latest versions ([b831c0b](https://github.com/kumanu/angular-inviewport/commit/b831c0b9464e909f78c9d90b41d1b64a09e501e5))
+* upgrade Angular to version 11 ([eb12c8a](https://github.com/kumanu/angular-inviewport/commit/eb12c8a8d592f5999cfc113c50079641b5c338cf))
 * upgrade Angular to version 12 ([8200694](https://github.com/kumanu/angular-inviewport/commit/8200694844290860ff42760d1ec28c7a373a2c07))
+* upgrade Angular to version 13 ([fffa7a6](https://github.com/kumanu/angular-inviewport/commit/fffa7a6b41eb0dcdc75ccfb2787906ce600f62b5))
+* upgrade Angular to version 14 ([4201142](https://github.com/kumanu/angular-inviewport/commit/420114298b97f0dc1539e28b16d63cd45ed78fa8))
+* upgrade Angular to version 15 ([78f3a65](https://github.com/kumanu/angular-inviewport/commit/78f3a65808e83313962b30461a37a8cd1c61ac7e))
+* upgrade Angular to version 16 ([90922ef](https://github.com/kumanu/angular-inviewport/commit/90922efafb787d28337ce86202b3e9560fa4be82))
+* update packages to latest versions ([b831c0b](https://github.com/kumanu/angular-inviewport/commit/b831c0b9464e909f78c9d90b41d1b64a09e501e5))
 
 <a name="4.2.2"></a>
 ## [4.2.2](https://github.com/thisissoon/angular-inviewport/compare/v4.2.1...v4.2.2) (2020-02-03)

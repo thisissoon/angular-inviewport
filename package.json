@@ -1,6 +1,6 @@
 {
   "name": "@kumanu/angular-inviewport",
-  "version": "5.0.3-alpha",
+  "version": "5.0.4-alpha",
   "description": "A simple lightweight library for Angular that detects when an element is within the browser viewport and adds a sn-viewport--in or sn-viewport--out class to the element.",
   "keywords": [
     "angular",
@@ -25,8 +25,8 @@
     "url": "https://github.com/kumanu/angular-inviewport"
   },
   "engines": {
-    "node": ">= 14.15.0",
-    "npm": ">= 5.6.0"
+    "node": ">= 14.16.0",
+    "npm": ">= 6.14.18"
   },
   "scripts": {
     "ng": "ng",
@@ -47,7 +47,9 @@
     "build:client-and-server-bundles": "ng build --configuration production && ng run angular-inviewport:server",
     "webpack:server": "webpack --config webpack.server.js --progress --colors",
     "release": "standard-version",
-    "postrelease": "npm run packagr"
+    "postrelease": "npm run packagr",
+    "prepare": "husky install",
+    "pre-commit": "lint-staged"
   },
   "private": false,
   "peerDependencies": {},
@@ -68,47 +70,45 @@
     "@angular/platform-browser-dynamic": "16.1.4",
     "@angular/platform-server": "16.1.4",
     "@nguniversal/express-engine": "^16.1.1",
-    "@thisissoon/schematics": "^1.0.0-alpha.18",
-    "@types/jasmine": "~3.6.0",
-    "@types/jasminewd2": "~2.0.2",
-    "@types/node": "^14.0.25",
-    "@typescript-eslint/eslint-plugin": "5.62.0",
-    "@typescript-eslint/parser": "5.62.0",
-    "core-js": "^3.6.5",
-    "coveralls": "^3.1.0",
-    "cz-conventional-changelog": "^3.2.0",
+    "@types/jasmine": "~4.3.5",
+    "@types/jasminewd2": "~2.0.10",
+    "@types/node": "^20.4.2",
+    "@typescript-eslint/eslint-plugin": "6.0.0",
+    "@typescript-eslint/parser": "6.0.0",
+    "core-js": "^3.31.1",
+    "coveralls": "^3.1.1",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.44.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react": "^7.32.2",
-    "express": "^4.16.3",
-    "husky": "^4.2.5",
-    "intersection-observer": "^0.11.0",
-    "jasmine-core": "~3.6.0",
-    "jasmine-spec-reporter": "~5.0.0",
+    "express": "^4.18.2",
+    "husky": "^8.0.0",
+    "intersection-observer": "^0.12.2",
+    "jasmine-core": "~5.0.1",
+    "jasmine-spec-reporter": "~7.0.0",
     "karma": "~6.4.2",
-    "karma-chrome-launcher": "~3.1.0",
+    "karma-chrome-launcher": "~3.2.0",
     "karma-cli": "^2.0.0",
-    "karma-coverage-istanbul-reporter": "~3.0.2",
-    "karma-jasmine": "~4.0.0",
-    "karma-jasmine-html-reporter": "^1.5.0",
+    "karma-coverage-istanbul-reporter": "~3.0.3",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "^2.1.0",
     "karma-mocha-reporter": "^2.2.5",
-    "lint-staged": "^10.2.11",
+    "lint-staged": "^13.2.3",
     "ng-packagr": "^16.1.0",
     "prettier": "^3.0.0",
     "protractor": "^7.0.0",
-    "rxjs": "^6.6.3",
-    "standard-version": "^8.0.2",
-    "stylelint": "^13.6.1",
-    "stylelint-config-prettier": "^8.0.2",
-    "stylelint-config-recommended-scss": "^4.2.0",
-    "stylelint-config-standard": "^20.0.0",
-    "stylelint-order": "^4.1.0",
-    "stylelint-scss": "^3.18.0",
-    "ts-loader": "^8.0.1",
-    "ts-node": "^8.10.2",
-    "typescript": "~4.9.5",
+    "rxjs": "^7.8.1",
+    "standard-version": "^9.5.0",
+    "stylelint": "^15.10.1",
+    "stylelint-config-standard": "^34.0.0",
+    "stylelint-order": "^6.0.3",
+    "stylelint-scss": "^5.0.1",
+    "ts-loader": "^9.4.4",
+    "ts-node": "^10.9.1",
+    "typescript": "~5.1.6",
+    "webpack": "^5.88.1",
     "zone.js": "~0.13.1"
   },
   "config": {
@@ -120,11 +120,6 @@
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
     "lib": {
       "entryFile": "src/index.ts"
-    }
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
@@ -139,6 +134,6 @@
     ]
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.6.0"
   }
 }

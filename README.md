@@ -211,9 +211,9 @@ export class AppComponent {
   constructor() {
     this.inViewportChange = new Subject<boolean>().pipe(take(5));
 
-    this.inViewportChange.subscribe((inViewport: boolean) =>
+    this.inViewportChange.subscribe((inViewport: boolean) => {
       this.highlight = inViewport;
-    );
+    });
   }
 
   onInViewportChange(inViewport: boolean) {

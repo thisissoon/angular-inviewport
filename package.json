@@ -35,9 +35,10 @@
     "test": "ng test",
     "lint": "npm run stylelint && npm run nglint && npm run prettier",
     "lint:fix": "npm run stylelint -- --fix && npm run nglint -- --fix && npm run prettier -- --write",
-    "nglint": "ng lint",
+    "nglint": "ng lint --quiet",
     "stylelint": "stylelint --syntax scss \"src/**/*.{css,scss}\"",
     "prettier": "prettier --config .prettierrc -l \"src/**/*.{ts,js,json,css,scss}\"",
+    "format": "npm run prettier -- --write",
     "e2e": "ng e2e",
     "coverage": "coveralls < coverage/lcov.info",
     "packagr": "ng-packagr -p package.json",
@@ -52,6 +53,11 @@
   "peerDependencies": {},
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.1.4",
+    "@angular-eslint/builder": "16.1.0",
+    "@angular-eslint/eslint-plugin": "16.1.0",
+    "@angular-eslint/eslint-plugin-template": "16.1.0",
+    "@angular-eslint/schematics": "16.1.0",
+    "@angular-eslint/template-parser": "16.1.0",
     "@angular/animations": "16.1.4",
     "@angular/cli": "16.1.4",
     "@angular/common": "16.1.4",
@@ -66,10 +72,16 @@
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "^14.0.25",
-    "codelyzer": "^6.0.2",
+    "@typescript-eslint/eslint-plugin": "5.62.0",
+    "@typescript-eslint/parser": "5.62.0",
     "core-js": "^3.6.5",
     "coveralls": "^3.1.0",
     "cz-conventional-changelog": "^3.2.0",
+    "eslint": "^8.44.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.32.2",
     "express": "^4.16.3",
     "husky": "^4.2.5",
     "intersection-observer": "^0.11.0",
@@ -84,7 +96,7 @@
     "karma-mocha-reporter": "^2.2.5",
     "lint-staged": "^10.2.11",
     "ng-packagr": "^16.1.0",
-    "prettier": "^2.0.5",
+    "prettier": "^3.0.0",
     "protractor": "^7.0.0",
     "rxjs": "^6.6.3",
     "standard-version": "^8.0.2",
@@ -96,8 +108,6 @@
     "stylelint-scss": "^3.18.0",
     "ts-loader": "^8.0.1",
     "ts-node": "^8.10.2",
-    "tslint": "~6.1.0",
-    "tslint-config-prettier": "^1.16.0",
     "typescript": "~4.9.5",
     "zone.js": "~0.13.1"
   },
@@ -118,8 +128,8 @@
     }
   },
   "lint-staged": {
-    "src/**/*.ts": [
-      "tslint --fix"
+    "src/**/*.{ts,html}": [
+      "eslint --fix"
     ],
     "src/**/*.{css,scss}": [
       "stylelint --syntax scss --fix"

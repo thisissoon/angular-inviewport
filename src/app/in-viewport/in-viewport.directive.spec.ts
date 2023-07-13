@@ -1,9 +1,9 @@
-import { ElementRef } from '@angular/core';
-import { InViewportDirective } from './in-viewport.directive';
 import {
   WINDOW_MOCK,
   WINDOW_MOCK_WITHOUT_INTERSECTION_OBSERVER,
 } from '../window/window-mock';
+import { ElementRef } from '@angular/core';
+import { InViewportDirective } from './in-viewport.directive';
 
 describe('InViewportDirective', () => {
   let node: HTMLElement;
@@ -63,7 +63,7 @@ describe('InViewportDirective', () => {
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith(
       jasmine.any(Function),
-      directive.inViewportOptions
+      directive.inViewportOptions,
     );
   });
 
@@ -82,7 +82,7 @@ describe('InViewportDirective', () => {
 
     directive = new InViewportDirective(
       el,
-      WINDOW_MOCK_WITHOUT_INTERSECTION_OBSERVER as any
+      WINDOW_MOCK_WITHOUT_INTERSECTION_OBSERVER as any,
     );
     const spy = jasmine.createSpy('spy');
     directive.inViewportChange.emit = spy;

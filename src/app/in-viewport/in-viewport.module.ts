@@ -1,5 +1,4 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
-
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { InViewportDirective } from './in-viewport.directive';
 import { WINDOW } from '../window/window-token';
 import { WINDOW_MOCK } from '../window/window-mock';

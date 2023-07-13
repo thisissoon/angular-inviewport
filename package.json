@@ -41,13 +41,13 @@
     "format": "npm run prettier -- --write",
     "e2e": "ng e2e",
     "coverage": "coveralls < coverage/lcov.info",
-    "packagr": "ng-packagr -p package.json",
     "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
     "serve:ssr": "node dist/server.js",
     "build:client-and-server-bundles": "ng build --configuration production && ng run angular-inviewport:server",
     "webpack:server": "webpack --config webpack.server.js --progress --colors",
     "release": "standard-version",
     "postrelease": "npm run packagr",
+    "packagr": "ng-packagr -p ng-package.json",
     "prepare": "husky install",
     "pre-commit": "lint-staged"
   },
@@ -114,12 +114,6 @@
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
-  "ngPackage": {
-    "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
-    "lib": {
-      "entryFile": "src/index.ts"
     }
   },
   "lint-staged": {

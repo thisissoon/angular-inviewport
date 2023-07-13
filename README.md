@@ -13,19 +13,13 @@ This is a simple library for [Angular][angular], implemented in the [Angular Pac
 ### via NPM
 
 ```bash
-npm i @thisissoon/angular-inviewport
-```
-
-### via Yarn
-
-```bash
-yarn add @thisissoon/angular-inviewport
+npm i @kumanu/angular-inviewport
 ```
 
 `app.module.ts`
 
 ```ts
-import { InViewportModule } from '@thisissoon/angular-inviewport';
+import { InViewportModule } from '@kumanu/angular-inviewport';
 
 @NgModule({
   imports: [InViewportModule]
@@ -37,7 +31,7 @@ export class AppModule {}
 Only required For Server Side Rendering
 
 ```ts
-import { InViewportModule } from '@thisissoon/angular-inviewport';
+import { InViewportModule } from '@kumanu/angular-inviewport';
 
 @NgModule({
   imports: [InViewportModule.forServer()]
@@ -71,7 +65,7 @@ import 'intersection-observer';
 
 ## Examples
 
-A working example can be found [here](https://github.com/thisissoon/angular-inviewport/tree/master/src).
+A working example can be found [here](https://github.com/kumanu/angular-inviewport/tree/master/src).
 
 ### Just using classes
 
@@ -267,6 +261,9 @@ Run `npm run release` to create a new release. This will use [Standard Version][
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+Original credit for this package and the author(s) (and forked from): 
+https://github.com/thisissoon/angular-inviewport
 
 [circle-badge]: https://circleci.com/gh/thisissoon/angular-inviewport.svg?style=shield
 [circle-badge-url]: https://circleci.com/gh/thisissoon/angular-inviewport

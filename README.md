@@ -13,19 +13,13 @@ This is a simple library for [Angular][angular], implemented in the [Angular Pac
 ### via NPM
 
 ```bash
-npm i @thisissoon/angular-inviewport
-```
-
-### via Yarn
-
-```bash
-yarn add @thisissoon/angular-inviewport
+npm i @kumanu/angular-inviewport
 ```
 
 `app.module.ts`
 
 ```ts
-import { InViewportModule } from '@thisissoon/angular-inviewport';
+import { InViewportModule } from '@kumanu/angular-inviewport';
 
 @NgModule({
   imports: [InViewportModule]
@@ -37,7 +31,7 @@ export class AppModule {}
 Only required For Server Side Rendering
 
 ```ts
-import { InViewportModule } from '@thisissoon/angular-inviewport';
+import { InViewportModule } from '@kumanu/angular-inviewport';
 
 @NgModule({
   imports: [InViewportModule.forServer()]
@@ -47,9 +41,9 @@ export class AppServerModule {}
 
 ## Browser Support
 
-This library makes use of the [Intersection Observer API][intersection-observer-api] which requires a [polyfill][intersection-observer-polyfill] to work on some browsers.
+This library makes use of the [Intersection Observer API][intersection-observer-api] which may require a [polyfill][intersection-observer-polyfill] to work on some browsers.
 
-### Install the polyfill
+### Install the polyfill (if needed)
 
 ```bash
 npm i intersection-observer
@@ -61,7 +55,7 @@ Or use yarn
 yarn add intersection-observer
 ```
 
-### Include the polyfill
+### Include the polyfill (if needed)
 
 Add this somewhere in your `src/polyfills.ts` file
 
@@ -71,7 +65,7 @@ import 'intersection-observer';
 
 ## Examples
 
-A working example can be found [here](https://github.com/thisissoon/angular-inviewport/tree/master/src).
+A working example can be found [here](https://github.com/kumanu/angular-inviewport/tree/master/src).
 
 ### Just using classes
 
@@ -143,7 +137,7 @@ export class AppComponent {
   Amet tempor excepteur occaecat nulla.
 </p>
 ```
-
+po
 #### `app.component.ts`
 
 ```ts
@@ -211,9 +205,9 @@ export class AppComponent {
   constructor() {
     this.inViewportChange = new Subject<boolean>().pipe(take(5));
 
-    this.inViewportChange.subscribe((inViewport: boolean) =>
+    this.inViewportChange.subscribe((inViewport: boolean) => {
       this.highlight = inViewport;
-    );
+    });
   }
 
   onInViewportChange(inViewport: boolean) {
@@ -267,6 +261,9 @@ Run `npm run release` to create a new release. This will use [Standard Version][
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+Original credit for this package and the author(s) (and forked from): 
+https://github.com/thisissoon/angular-inviewport
 
 [circle-badge]: https://circleci.com/gh/thisissoon/angular-inviewport.svg?style=shield
 [circle-badge-url]: https://circleci.com/gh/thisissoon/angular-inviewport

@@ -36,19 +36,19 @@ indent_size = 2
 
 # Front End Languages (HTML, JS/TS, CSS etc)
 
-[*.{js, ts, css, html}]
+[*.{js,ts,css,html}]
 indent_style = space
 indent_size = 2
 charset = utf-8
 trim_trailing_whitespace = true
 
 ## JS/TS
-[*.{js, ts}]
+[*.{js,ts}]
 quote_type = single
 
 # Misc
 
 # YAML Based files - 2 space indent
-[*.{yml, yaml, sls}]
+[*.{yml,yaml,sls}]
 indent_style = space
 indent_size = 2
